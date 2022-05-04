@@ -1,0 +1,12 @@
+[{
+  "chore_name": "Feed the Dog",
+  "chore_description": "Give 1.5 cups of food twice per day. Add water to soften food."
+},
+{
+  "chore_name": "Give Medicine to Dog",
+  "chore_description": "Give 1/2 pill every 12 hours. Cover with cream cheese."
+},
+{
+  "chore_name": "Walk the Dog",
+  "chore_description": "Walk dog 3x per day, morning, midday, and evening. Aim for 3-5 miles per day."
+}]
