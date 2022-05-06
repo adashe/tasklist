@@ -66,7 +66,7 @@ class Assignment(db.Model):
         return f'<Assignment assignment_id={self.assignment_id} group_id={self.group_id} chore_id={self.chore_id}>'
 
 
-def connect_to_db(app, db_name):
+def connect_to_db(app, db_uri="postgresql:///tasklist", echo=True):
     """Connect to database."""
 
     app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql:///tasklist"
@@ -75,6 +75,8 @@ def connect_to_db(app, db_name):
 
     db.app = app
     db.init_app(app)
+
+    print("Connected to the db!")
 
 
 if __name__ == "__main__":
