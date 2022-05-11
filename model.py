@@ -14,7 +14,7 @@ class User(db.Model):
                         primary_key=True)
     username = db.Column(db.String(20), unique=True)
     password = db.Column(db.String(20))
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
+    # group_name = db.Column(db.Integer, db.ForeignKey('groups.group_name'))
 
     def __repr__(self):
         return f'<User user_id={self.user_id} username={self.username}>'
@@ -28,9 +28,10 @@ class Group(db.Model):
     group_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
+    group_name = db.Column(db.String(20))
 
     def __repr__(self):
-        return f'<Group group_id={self.group_id}>'
+        return f'<Group group_id={self.group_id} group_name={self.group_name}>'
 
 
 class Chore(db.Model):

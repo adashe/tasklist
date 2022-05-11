@@ -3,13 +3,22 @@
 from model import db, User, Group, Chore, Assignment, connect_to_db
 
 
-
 def create_user(username, password):
     """Create and return a new user."""
 
     user = User(username=username, password=password)
 
     return user
+
+
+# def create_user(username, password, group_name=None):
+#     """Create and return a new user."""
+
+#     user = User(username=username, password=password, group_name=group_name)
+
+#     group = create_group(group_name=group_name)
+
+#     return user
 
 
 def get_users():
@@ -30,9 +39,17 @@ def get_user_by_username(username):
     return User.query.filter(User.username == username).first()
 
 
+# def create_group(group_name=None):
+
+#     group = Group(group_name=group_name)
+
+#     return group
+
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
 
 
+# TODO: Fix create_user and create_groups - cannot commit new user to database
 # TODO: Add crud for chores, groups, and assignments and test code.
