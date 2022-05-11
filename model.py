@@ -20,48 +20,48 @@ class User(db.Model):
         return f'<User user_id={self.user_id} username={self.username}>'
 
 
-class Group(db.Model):
-    """A group of one or more users."""
+# class Group(db.Model):
+#     """A group of one or more users."""
 
-    __tablename___ = "groups"
+#     __tablename___ = "groups"
 
-    group_id = db.Column(db.Integer,
-                        autoincrement=True,
-                        primary_key=True)
-    group_name = db.Column(db.String(20))
+#     group_id = db.Column(db.Integer,
+#                         autoincrement=True,
+#                         primary_key=True)
+#     group_name = db.Column(db.String(20))
 
-    def __repr__(self):
-        return f'<Group group_id={self.group_id} group_name={self.group_name}>'
-
-
-class Chore(db.Model):
-    """A library of chores."""
-
-    __tablename___ = "chores"
-
-    chore_id = db.Column(db.Integer,
-                        autoincrement=True,
-                        primary_key=True)
-    chore_name = db.Column(db.String(20), unique=True)
-    chore_description = db.Column(db.Text)
-
-    def __repr__(self):
-        return f'<Chore chore_id={self.chore_id} description={self.chore_description}>'
+#     def __repr__(self):
+#         return f'<Group group_id={self.group_id} group_name={self.group_name}>'
 
 
-class Assignment(db.Model):
-    """Chores that have been assigned to a user."""
+# class Chore(db.Model):
+#     """A library of chores."""
 
-    __tablename___ = "assignments"
+#     __tablename___ = "chores"
 
-    assignment_id = db.Column(db.Integer,
-                        autoincrement=True,
-                        primary_key=True)
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
-    chore_id = db.Column(db.Integer, db.ForeignKey('chores.chore_id'))
-    complete = db.Column(db.Boolean)
-    date = db.Column(db.Integer)
-    complete = db.Column(db.Boolean)
+#     chore_id = db.Column(db.Integer,
+#                         autoincrement=True,
+#                         primary_key=True)
+#     chore_name = db.Column(db.String(20), unique=True)
+#     chore_description = db.Column(db.Text)
+
+#     def __repr__(self):
+#         return f'<Chore chore_id={self.chore_id} description={self.chore_description}>'
+
+
+# class Assignment(db.Model):
+#     """Chores that have been assigned to a user."""
+
+#     __tablename___ = "assignments"
+
+#     assignment_id = db.Column(db.Integer,
+#                         autoincrement=True,
+#                         primary_key=True)
+#     group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
+#     chore_id = db.Column(db.Integer, db.ForeignKey('chores.chore_id'))
+#     complete = db.Column(db.Boolean)
+#     date = db.Column(db.Integer)
+#     complete = db.Column(db.Boolean)
 
     def __repr__(self):
         return f'<Assignment assignment_id={self.assignment_id} group_id={self.group_id} chore_id={self.chore_id}>'
