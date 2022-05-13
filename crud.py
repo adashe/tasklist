@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, User, connect_to_db
+from model import db, User, Chore, connect_to_db
 
 # from model import db, User, Group, Chore, Assignment, connect_to_db
 
@@ -11,16 +11,6 @@ def create_user(username, password):
     user = User(username=username, password=password)
 
     return user
-
-
-# def create_user(username, password, group_name=None):
-#     """Create and return a new user."""
-
-#     user = User(username=username, password=password, group_name=group_name)
-
-#     group = create_group(group_name=group_name)
-
-#     return user
 
 
 def get_users():
@@ -53,5 +43,4 @@ if __name__ == '__main__':
     connect_to_db(app)
 
 
-# TODO: Fix create_user and create_groups - cannot commit new user to database
 # TODO: Add crud for chores, groups, and assignments and test code.

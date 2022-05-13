@@ -14,7 +14,6 @@ class User(db.Model):
                         primary_key=True)
     username = db.Column(db.String(20), unique=True)
     password = db.Column(db.String(20))
-    # group_name = db.Column(db.Integer, db.ForeignKey('groups.group_name'))
 
     def __repr__(self):
         return f'<User user_id={self.user_id} username={self.username}>'
@@ -34,19 +33,19 @@ class User(db.Model):
 #         return f'<Group group_id={self.group_id} group_name={self.group_name}>'
 
 
-# class Chore(db.Model):
-#     """A library of chores."""
+class Chore(db.Model):
+    """A library of chores."""
 
-#     __tablename___ = "chores"
+    __tablename___ = "chores"
 
-#     chore_id = db.Column(db.Integer,
-#                         autoincrement=True,
-#                         primary_key=True)
-#     chore_name = db.Column(db.String(20), unique=True)
-#     chore_description = db.Column(db.Text)
+    chore_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True)
+    chore_name = db.Column(db.String(20), unique=True)
+    chore_description = db.Column(db.Text)
 
-#     def __repr__(self):
-#         return f'<Chore chore_id={self.chore_id} description={self.chore_description}>'
+    def __repr__(self):
+        return f'<Chore chore_id={self.chore_id} description={self.chore_description}>'
 
 
 # class Assignment(db.Model):
