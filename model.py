@@ -56,14 +56,16 @@ class Chore(db.Model):
 #     assignment_id = db.Column(db.Integer,
 #                         autoincrement=True,
 #                         primary_key=True)
-#     group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 #     chore_id = db.Column(db.Integer, db.ForeignKey('chores.chore_id'))
 #     complete = db.Column(db.Boolean)
-#     date = db.Column(db.Integer)
-#     complete = db.Column(db.Boolean)
+#     # date = db.Column(db.Integer)
 
-    # def __repr__(self):
-    #     return f'<Assignment assignment_id={self.assignment_id} group_id={self.group_id} chore_id={self.chore_id}>'
+#     username = db.relationship("User", back_populates="assignments")
+#     chore = db.relationship("Chore", back_populates="assignments")
+
+#     def __repr__(self):
+#         return f'<Assignment assignment_id={self.assignment_id} user_id={self.chore_id} chore_id={self.chore_id} complete={self.chore_id}>'
 
 
 def connect_to_db(app, db_uri="postgresql:///tasklist", echo=True):
@@ -87,3 +89,6 @@ if __name__ == "__main__":
     # query it executes.
 
     connect_to_db(app)
+
+
+# TODO: Add Assignment class
