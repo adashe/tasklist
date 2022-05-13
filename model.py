@@ -63,8 +63,8 @@ class User(db.Model):
 #     date = db.Column(db.Integer)
 #     complete = db.Column(db.Boolean)
 
-    def __repr__(self):
-        return f'<Assignment assignment_id={self.assignment_id} group_id={self.group_id} chore_id={self.chore_id}>'
+    # def __repr__(self):
+    #     return f'<Assignment assignment_id={self.assignment_id} group_id={self.group_id} chore_id={self.chore_id}>'
 
 
 def connect_to_db(app, db_uri="postgresql:///tasklist", echo=True):
