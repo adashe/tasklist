@@ -45,7 +45,7 @@ class Chore(db.Model):
     chore_description = db.Column(db.Text)
 
     def __repr__(self):
-        return f'<Chore chore_id={self.chore_id} description={self.chore_description}>'
+        return f'<Chore chore_id={self.chore_id} chore_name={self.chore_name} description={self.chore_description}>'
 
 
 # class Assignment(db.Model):
