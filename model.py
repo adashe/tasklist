@@ -47,11 +47,11 @@ class Assignment(db.Model):
     chore_id = db.Column(db.Integer, db.ForeignKey('chores.chore_id'))
     complete = db.Column(db.Boolean)
 
-    username = db.relationship("User", backref="assignments")
+    user = db.relationship("User", backref="assignments")
     chore = db.relationship("Chore", backref="assignments")
 
     def __repr__(self):
-        return f'<Assignment assignment_id={self.assignment_id} user_id={self.chore_id} chore_id={self.chore_id} complete={self.chore_id}>'
+        return f'<Assignment assignment_id={self.assignment_id} user={self.user} chore={self.chore} complete={self.complete}>'
 
 
 def connect_to_db(app, db_uri="postgresql:///tasklist", echo=True):
@@ -75,6 +75,3 @@ if __name__ == "__main__":
     # query it executes.
 
     connect_to_db(app)
-
-
-# TODO: Add Assignment class

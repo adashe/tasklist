@@ -47,16 +47,18 @@ def get_chores():
     return Chore.query.all()
 
 
-def get_chore_by_id(chore_id):
+def get_chore_by_chore_id(chore_id):
     """Return chore details."""
 
-    return Chore.query.get(user_id)
+    return Chore.query.get(chore_id)
 
 
-def get_chore_by_chore_name(chore_name):
+def get_chore_descr_by_chore_name(chore_name):
     """Return the chore description."""
 
-    return Chore.query.filter(Chore.chore_name == chore_name).first()
+    chore = Chore.query.filter(Chore.chore_name == chore_name).first()
+
+    return chore.chore_description
 
 
     ## ASSIGNMENT FUNCTIONS ##
@@ -75,15 +77,46 @@ def get_assignments():
     return Assignment.query.all()
 
 
-def get_assignment_by_id(assignment_id):
-    """Return assignment details."""
+def get_assignment_by_assignment_id(assignment_id):
+    """Return assignment."""
 
     return Assignment.query.get(assignment_id)
+
+
+def get_user_by_assignment_id(assignment_id):
+    """Return user."""
+
+    assignment = Assignment.query.filter(Assignment.assignment_id == assignment_id).first()
+
+    return assignment.user
+
+
+def get_chore_by_assignment_id(assignment_id):
+    """Return chore."""
+
+    assignment = Assignment.query.filter(Assignment.assignment_id == assignment_id).first()
+
+    return assignment.chore
+
+
+def get_assignments_by_user_id(user_id):
+    """Return all chores assigned to a user."""
+
+    assignments = Assignment.query.filter(Assignment.user_id == user_id).all()
+
+    return assignments
+
+
+def mark_assignment_complete(assignment_id):
+    """Mark an assignment complete."""
+
+    assignment = Assignment.query.get(assignment_id)
+
+    assignment.complete = True
+    
+    return assignment
 
 
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
-
-
-# TODO: Add crud for assignments.
