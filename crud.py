@@ -8,9 +8,7 @@ from model import db, User, Chore, Assignment, connect_to_db
 def create_user(username, password):
     """Create and return a new user."""
 
-    user = User(username=username, password=password)
-
-    return user
+    return User(username=username, password=password)
 
 
 def get_users():
@@ -36,9 +34,7 @@ def get_user_by_username(username):
 def create_chore(chore_name, chore_description):
     """Create and return a new chore."""
 
-    chore = Chore(chore_name=chore_name, chore_description=chore_description)
-
-    return chore
+    return Chore(chore_name=chore_name, chore_description=chore_description)
 
 
 def get_chores():
@@ -56,9 +52,7 @@ def get_chore_by_chore_id(chore_id):
 def get_chore_descr_by_chore_name(chore_name):
     """Return the chore description."""
 
-    chore = Chore.query.filter(Chore.chore_name == chore_name).first()
-
-    return chore.chore_description
+    return Chore.query.filter(Chore.chore_name == chore_name).first()
 
 
     ## ASSIGNMENT FUNCTIONS ##
@@ -66,9 +60,7 @@ def get_chore_descr_by_chore_name(chore_name):
 def create_assignment(user_id, chore_id, complete=False):
     """Create and return a new assignment."""
 
-    assignment = Assignment(user_id=user_id, chore_id=chore_id, complete=complete)
-
-    return assignment
+    return Assignment(user_id=user_id, chore_id=chore_id, complete=complete)
 
 
 def get_assignments():
@@ -86,7 +78,7 @@ def get_assignment_by_assignment_id(assignment_id):
 def get_user_by_assignment_id(assignment_id):
     """Return user."""
 
-    assignment = Assignment.query.filter(Assignment.assignment_id == assignment_id).first()
+    assignment = get_assignment_by_assignment_id(assignment_id)
 
     return assignment.user
 
@@ -94,7 +86,7 @@ def get_user_by_assignment_id(assignment_id):
 def get_chore_by_assignment_id(assignment_id):
     """Return chore."""
 
-    assignment = Assignment.query.filter(Assignment.assignment_id == assignment_id).first()
+    assignment = get_assignment_by_assignment_id(assignment_id)
 
     return assignment.chore
 
@@ -102,15 +94,13 @@ def get_chore_by_assignment_id(assignment_id):
 def get_assignments_by_user_id(user_id):
     """Return all chores assigned to a user."""
 
-    assignments = Assignment.query.filter(Assignment.user_id == user_id).all()
-
-    return assignments
+    return Assignment.query.filter(Assignment.user_id == user_id).all()
 
 
 def mark_assignment_complete(assignment_id):
     """Mark an assignment complete."""
 
-    assignment = Assignment.query.get(assignment_id)
+    assignment = get_assignment_by_assignment_id(assignment_id)
 
     assignment.complete = True
     

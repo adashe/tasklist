@@ -51,7 +51,7 @@ class Assignment(db.Model):
     chore = db.relationship("Chore", backref="assignments")
 
     def __repr__(self):
-        return f'<Assignment assignment_id={self.assignment_id} user={self.user} chore={self.chore} complete={self.complete}>'
+        return f'<Assignment assignment_id={self.assignment_id} user={self.user.username} chore={self.chore.chore_name} complete={self.complete}>'
 
 
 def connect_to_db(app, db_uri="postgresql:///tasklist", echo=True):
