@@ -4,10 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 class User(db.Model):
     """A user."""
 
-    __tablename___ = "users"
+    __tablename__ = "users"
 
     user_id = db.Column(db.Integer,
                         autoincrement=True,
@@ -19,24 +20,10 @@ class User(db.Model):
         return f'<User user_id={self.user_id} username={self.username}>'
 
 
-# class Group(db.Model):
-#     """A group of one or more users."""
-
-#     __tablename___ = "groups"
-
-#     group_id = db.Column(db.Integer,
-#                         autoincrement=True,
-#                         primary_key=True)
-#     group_name = db.Column(db.String(20))
-
-#     def __repr__(self):
-#         return f'<Group group_id={self.group_id} group_name={self.group_name}>'
-
-
 class Chore(db.Model):
     """A library of chores."""
 
-    __tablename___ = "chores"
+    __tablename__ = "chores"
 
     chore_id = db.Column(db.Integer,
                         autoincrement=True,
@@ -48,24 +35,23 @@ class Chore(db.Model):
         return f'<Chore chore_id={self.chore_id} chore_name={self.chore_name} description={self.chore_description}>'
 
 
-# class Assignment(db.Model):
-#     """Chores that have been assigned to a user."""
+class Assignment(db.Model):
+    """Chores that have been assigned to a user."""
 
-#     __tablename___ = "assignments"
+    __tablename__ = "assignments"
 
-#     assignment_id = db.Column(db.Integer,
-#                         autoincrement=True,
-#                         primary_key=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-#     chore_id = db.Column(db.Integer, db.ForeignKey('chores.chore_id'))
-#     complete = db.Column(db.Boolean)
-#     # date = db.Column(db.Integer)
+    assignment_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    chore_id = db.Column(db.Integer, db.ForeignKey('chores.chore_id'))
+    complete = db.Column(db.Boolean)
 
-#     username = db.relationship("User", back_populates="assignments")
-#     chore = db.relationship("Chore", back_populates="assignments")
+    username = db.relationship("User", backref="assignments")
+    chore = db.relationship("Chore", backref="assignments")
 
-#     def __repr__(self):
-#         return f'<Assignment assignment_id={self.assignment_id} user_id={self.chore_id} chore_id={self.chore_id} complete={self.chore_id}>'
+    def __repr__(self):
+        return f'<Assignment assignment_id={self.assignment_id} user_id={self.chore_id} chore_id={self.chore_id} complete={self.chore_id}>'
 
 
 def connect_to_db(app, db_uri="postgresql:///tasklist", echo=True):

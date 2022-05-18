@@ -2,7 +2,6 @@
 
 from model import db, User, Chore, Assignment, connect_to_db
 
-# from model import db, User, Group, Chore, Assignment, connect_to_db
 
     ## USER FUNCTIONS ##
 
@@ -62,24 +61,24 @@ def get_chore_by_chore_name(chore_name):
 
     ## ASSIGNMENT FUNCTIONS ##
 
-# def create_assignment(user_id, chore_id, complete=False):
-#     """Create and return a new assignment."""
+def create_assignment(user_id, chore_id, complete=False):
+    """Create and return a new assignment."""
 
-#     assignment = Assignment(user_id=user_id, chore_id=chore_id, complete=complete)
+    assignment = Assignment(user_id=user_id, chore_id=chore_id, complete=complete)
 
-#     return assignment
-
-
-# def get_assignments():
-#     """Return all assignments."""
-
-#     return Assignment.query.all()
+    return assignment
 
 
-# def get_assignment_by_id(assignment_id):
-#     """Return assignment details."""
+def get_assignments():
+    """Return all assignments."""
 
-#     return Assignment.query.get(assignment_id)
+    return Assignment.query.all()
+
+
+def get_assignment_by_id(assignment_id):
+    """Return assignment details."""
+
+    return Assignment.query.get(assignment_id)
 
 
 if __name__ == '__main__':
