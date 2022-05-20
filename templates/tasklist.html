@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.username }} - Details{% endblock %}
+
+{% block body %}
+
+<h1>Tasklist for {{ user.username }}</h1>
+<ol>
+  <li>Sleep on Sofa</li>
+  <li>Do Homework</li>
+  <li>Fold Blankets</li>
+  <li>Zoomies</li>
+</ol>
+
+
+<h2>Assign A Task</h2>
+<form action="/add-task" method="POST">
+  <p>
+    Task 
+    <select name="chore-name">
+      <option value="chore1">Feed the Dog</option>
+      <option value="chore2">Give Medicine to Dog</option>
+      <option value="chore3">Bark at Squirrels</option>
+      <option value="chore4">Run Fast</option>
+    </select>
+  </p>
+  
+  <p>
+    <input type="submit">
+  </p>
+</form>
+
+<h2>Add New Chore to Library</h2>
+<form action="/add-chore" method="POST">
+<p>
+  Chore Name <input type="text" name="new-chore">
+</p>
+
+<p>
+  Chore Description <input type="text" name="chore-description">
+</p>
+
+<p>
+  <input type="submit">
+</p>
+</form>
+{% endblock %}
