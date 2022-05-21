@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ user.username }} - Details{% endblock %}
+{% block title %}User Details{% endblock %}
 
 {% block body %}
 <h1>{{ user.username }}</h1>
+
+<h2>{{ user.username }}'s Assignments</h2>
+
+<ul>
+  <li>Chore 1</li>
+  <li>Chore 2</li>
+</ul>
 
 {% endblock %}
