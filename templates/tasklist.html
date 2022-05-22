@@ -19,20 +19,19 @@
 
 
 <h2>Assign A Chore</h2>
-<form action="/add-task" method="POST">
+<form action="/add-assignment" method="POST">
   <p>
     Chores 
-    <select name="chore-name">
-      <option value="chore1">Feed the Dog</option>
-      <option value="chore2">Give Medicine to Dog</option>
-      <option value="chore3">Bark at Squirrels</option>
-      <option value="chore4">Run Fast</option>
+    <select name="chore_id">
+      {% for chore in chores %}
+      <option value="{{ chore.chore_id }}">{{ chore.chore_name }}</option>
+      {% endfor %}
     </select>
   </p>
 
   <p>
   Users 
-    <select name="user">
+    <select name="user_id">
       {% for user in users %}
       <option value="{{ user.user_id }}">{{ user.username }}</option>
       {% endfor %}
@@ -47,11 +46,11 @@
 <h2>Add New Chore to Library</h2>
 <form action="/add-chore" method="POST">
 <p>
-  Chore Name <input type="text" name="new-chore">
+  Chore Name <input type="text" name="chore_name">
 </p>
 
 <p>
-  Chore Description <input type="text" name="chore-description">
+  Chore Description <input type="text" name="chore_description">
 </p>
 
 <p>

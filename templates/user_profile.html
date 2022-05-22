@@ -8,8 +8,26 @@
 <h2>{{ user.username }}'s Assignments</h2>
 
 <ul>
-  <li>Chore 1</li>
-  <li>Chore 2</li>
+  {% for assignment in assignments %}
+  <li>
+    {{ assignment.chore.chore_name }}: {{ assignment.chore.chore_description }} Complete? {{ assignment.complete }}
+  </li>
+  {% endfor %}
 </ul>
+
+<table>
+  <tr>
+    <th>Chore Name</th>
+    <th>Chore Description</th>
+    <th>Chore Complete?</th>
+  </tr>
+  {% for assignment in assignments %}
+  <tr>
+    <td>{{ assignment.chore.chore_name }}</td>
+    <td>{{ assignment.chore.chore_description }}</td>
+    <td>{{ assignment.complete }}</td>
+  </tr>
+  {% endfor %}
+</table>
 
 {% endblock %}
