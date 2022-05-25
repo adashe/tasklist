@@ -1,9 +1,9 @@
 """CRUD operations."""
 
-from model import db, User, Chore, Assignment, connect_to_db
+from model import db, User, Group, GroupUser, Chore, GroupChore, Assignment, connect_to_db
 
 
-    ## USER FUNCTIONS ##
+## USER FUNCTIONS ##
 
 def create_user(username, password):
     """Create and return a new user."""
@@ -29,7 +29,45 @@ def get_user_by_username(username):
     return User.query.filter(User.username == username).first()
 
 
-    ## CHORE FUNCTIONS ##
+## GROUP FUNCTIONS ##
+
+def create_group(group_name, group_description):
+    """Create and return a new group."""
+
+    return Group(group_name=group_name, group_description=group_description)
+
+
+def get_groups():
+    """Return all groups."""
+
+    return Group.query.all()
+
+
+def add_user_to_group(group_id, user_id):
+    """Add a user to a group."""
+
+    return GroupUser(group_id=group_id, user_id=user_id)
+
+
+def get_users_by_group(group_id):
+    """Return all users in a group."""
+
+    return GroupUser.query.filter_by(group_id=group_id).all()
+
+
+def add_chore_to_group(group_id, chore_id):
+    """Add a user to a group."""
+
+    return GroupChore(group_id=group_id, chore_id=chore_id)
+
+
+def get_chores_by_group(group_id):
+    """Return all users in a group."""
+
+    return GroupChore.query.filter_by(group_id=group_id).all()
+
+
+## CHORE FUNCTIONS ##
 
 def create_chore(chore_name, chore_description):
     """Create and return a new chore."""
@@ -55,7 +93,7 @@ def get_chore_descr_by_chore_name(chore_name):
     return Chore.query.filter(Chore.chore_name == chore_name).first()
 
 
-    ## ASSIGNMENT FUNCTIONS ##
+## ASSIGNMENT FUNCTIONS ##
 
 def create_assignment(user_id, chore_id, complete=False):
     """Create and return a new assignment."""

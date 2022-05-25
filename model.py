@@ -20,6 +20,40 @@ class User(db.Model):
         return f'<User user_id={self.user_id} username={self.username}>'
 
 
+class Group(db.Model):
+    """A group."""
+
+    __tablename__ = "groups"
+
+    group_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True)
+    group_name = db.Column(db.String(20), unique=True)
+    group_description = db.Column(db.Text)
+
+    def __repr__(self):
+        return f'<Group group_id={self.group_id} group_name={self.group_name} group_description={self.group_description}>'
+    
+
+class GroupUser(db.Model):
+    """Many to many relationship between users and groups."""
+
+    __tablename__ = "user_groups"
+
+    group_id = db.Column(db.Integer, 
+                        db.ForeignKey('groups.group_id'),
+                        primary_key=True)
+    user_id = db.Column(db.Integer, 
+                        db.ForeignKey('users.user_id'),
+                        primary_key=True)
+
+    group = db.relationship("Group", backref="user_groups")
+    user = db.relationship("User", backref="user_groups")
+
+    def __repr__(self):
+        return f'<GroupUser group_id={self.group_id} group_name={self.group.group_name} user_id={self.user_id} username={self.user.username}>'
+
+
 class Chore(db.Model):
     """A library of chores."""
 
@@ -33,6 +67,26 @@ class Chore(db.Model):
 
     def __repr__(self):
         return f'<Chore chore_id={self.chore_id} chore_name={self.chore_name} description={self.chore_description}>'
+
+
+class GroupChore(db.Model):
+    """Many to many relationship between groups and chores."""
+
+    __tablename__ = "group_chores"
+
+    group_id = db.Column(db.Integer, 
+                        db.ForeignKey('groups.group_id'),
+                        primary_key=True)
+    chore_id = db.Column(db.Integer, 
+                        db.ForeignKey('chores.chore_id'),
+                        primary_key=True)
+
+    
+    group = db.relationship("Group", backref="group_chores")
+    chore = db.relationship("Chore", backref="group_chores")
+
+    def __repr__(self):
+        return f'<GroupChores group_id={self.group_id} group_name={self.group.group_name} chore_id={self.chore_id} chore_name={self.chore.chore_name}>'
 
 
 class Assignment(db.Model):
