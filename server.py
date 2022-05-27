@@ -15,6 +15,9 @@ app.jinja_env.undefined = StrictUndefined
 def show_homepage():
     """Shows homepage."""
 
+    if 'user_id' in session:
+        return redirect('/tasklist')
+
     return render_template("homepage.html")
 
 
@@ -51,9 +54,50 @@ def register_user():
         flash("Your account has successfully been created. You may now log in.")
 
     else:
-        flash("A user with that email already exists. Please enter a different email.")
+        flash("A user with that username already exists. Please enter a different username.")
 
     return redirect("/")
+
+
+@app.route("/groups")
+def show_groups():
+    """Shows groups."""
+
+    groups = crud.get_groups()
+
+    return render_template("groups.html", groups=groups)
+
+
+@app.route("/groups/<group_id>")
+def show_group_details(group_id):
+    """Shows group details."""
+
+    group = crud.get_group_by_id(group_id)
+    chores = crud.get_chores_by_group(group_id)
+
+    return render_template("group_profile.html", group=group)
+
+
+@app.route("/login", methods=['POST'])
+def user_login():
+    """Check the password and log in."""
+
+    username = request.form['username']
+    password = request.form["password"]
+
+    user = crud.get_user_by_username(username)
+
+    if user:
+        if user.password == password:
+            session['user_id']= user.user_id
+            flash('Logged in!')
+        else:
+            flash('Wrong password.')
+
+    else:
+        flash("Please create an account.")
+
+    return redirect('/tasklist')
 
 
 @app.route("/tasklist")
@@ -62,8 +106,9 @@ def show_tasklist():
 
     users = crud.get_users()
     chores = crud.get_chores()
+    groups = crud.get_groups()
 
-    return render_template("tasklist.html", users=users, chores=chores)
+    return render_template("tasklist.html", users=users, chores=chores, groups=groups)
 
 
 @app.route("/add-assignment", methods=["POST"])

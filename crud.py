@@ -43,6 +43,12 @@ def get_groups():
     return Group.query.all()
 
 
+def get_group_by_id(group_id):
+    """Return group details."""
+
+    return Group.query.get(group_id)
+
+
 def add_user_to_group(group_id, user_id):
     """Add a user to a group."""
 

@@ -50,4 +50,16 @@ assignments_in_db = [assignment1, assignment2, assignment3, assignment4, assignm
 
 model.db.session.add_all(assignments_in_db)
 
+
+## ADD GROUPS ##
+
+group1 = crud.create_group("People", "People in Unit 406")
+group2 = crud.create_group("Pets", "Pets in Unit 406")
+group3 = crud.create_group("Everyone", "Everyone in Unit 406")
+
+groups_in_db = [group1, group2, group3]
+
+model.db.session.add_all(groups_in_db)
+
+
 model.db.session.commit()
