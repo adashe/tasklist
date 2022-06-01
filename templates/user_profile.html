@@ -7,13 +7,6 @@
 
 <h2>{{ user.username }}'s Assignments</h2>
 
-<ul>
-  {% for assignment in assignments %}
-  <li>
-    {{ assignment.chore.chore_name }}: {{ assignment.chore.chore_description }} Complete? {{ assignment.complete }}
-  </li>
-  {% endfor %}
-</ul>
 
 <table>
   <tr>

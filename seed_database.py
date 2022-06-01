@@ -62,4 +62,37 @@ groups_in_db = [group1, group2, group3]
 model.db.session.add_all(groups_in_db)
 
 
+## ADD USERS TO GROUP ##
+group_user1 = crud.add_user_to_group(1, 1)
+group_user2 = crud.add_user_to_group(1, 2)
+group_user3 = crud.add_user_to_group(2, 3)
+group_user4 = crud.add_user_to_group(2, 4)
+group_user5 = crud.add_user_to_group(3, 1)
+group_user6 = crud.add_user_to_group(3, 2)
+group_user7 = crud.add_user_to_group(3, 3)
+group_user8 = crud.add_user_to_group(3, 4)
+
+group_users_in_db = [group_user1, group_user2, group_user3, group_user4, group_user5, group_user6, group_user7, group_user8]
+
+model.db.session.add_all(group_users_in_db)
+
+
+## ADD CHORES TO GROUP ##
+
+group_chore1 = crud.add_chore_to_group(1, 1)
+group_chore2 = crud.add_chore_to_group(1, 2)
+group_chore3 = crud.add_chore_to_group(2, 3)
+group_chore4 = crud.add_chore_to_group(2, 4)
+group_chore5 = crud.add_chore_to_group(3, 1)
+group_chore6 = crud.add_chore_to_group(3, 2)
+group_chore7 = crud.add_chore_to_group(3, 3)
+group_chore8 = crud.add_chore_to_group(3, 4)
+
+group_chores_in_db = [group_chore1, group_chore2, group_chore3, group_chore4, group_chore5, group_chore6, group_chore7, group_chore8]
+
+model.db.session.add_all(group_chores_in_db)
+
+
+## COMMIT ALL INPUTS TO DATABASE ##
+
 model.db.session.commit()

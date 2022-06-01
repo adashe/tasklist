@@ -38,7 +38,7 @@ class Group(db.Model):
 class GroupUser(db.Model):
     """Many to many relationship between users and groups."""
 
-    __tablename__ = "user_groups"
+    __tablename__ = "groups_users"
 
     group_id = db.Column(db.Integer, 
                         db.ForeignKey('groups.group_id'),
@@ -47,8 +47,8 @@ class GroupUser(db.Model):
                         db.ForeignKey('users.user_id'),
                         primary_key=True)
 
-    group = db.relationship("Group", backref="user_groups")
-    user = db.relationship("User", backref="user_groups")
+    group = db.relationship("Group", backref="groups_users")
+    user = db.relationship("User", backref="groups_users")
 
     def __repr__(self):
         return f'<GroupUser group_id={self.group_id} group_name={self.group.group_name} user_id={self.user_id} username={self.user.username}>'
@@ -86,7 +86,7 @@ class GroupChore(db.Model):
     chore = db.relationship("Chore", backref="group_chores")
 
     def __repr__(self):
-        return f'<GroupChores group_id={self.group_id} group_name={self.group.group_name} chore_id={self.chore_id} chore_name={self.chore.chore_name}>'
+        return f'<GroupChores group_id={self.group.group_id} group_name={self.group.group_name} chore_id={self.chore.chore_id} chore_name={self.chore.chore_name}>'
 
 
 class Assignment(db.Model):

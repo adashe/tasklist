@@ -7,8 +7,50 @@
 
 <h2>{{ group.group_name }}'s Members</h2>
 
-<h2>{{ group.group_name }}'s Chores</h2>
+<h3>Click on a user to see their assigned tasks.</h3>
+<ul>
+  {% for group_user in group_users %}
+  <li>
+    <a href="/users/{{ group_user.user.user_id }}">
+      {{ group_user.user.username }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
 
+<h2>{{ group.group_name }}'s Chore Library</h2>
 
+<ul>
+  {% for group_chore in group_chores %}
+  <li>
+    {{ group_chore.chore.chore_name }}
+  </li>
+  {% endfor %}
+</ul>
+
+<h2>Add Chore to Group Library</h2>
+<form action="/add-group-chore" method="POST">
+  
+  <p>
+    <select name="chore_id">
+      {% for chore in chores %}
+      <option value="{{ chore.chore_id }}">{{ chore.chore_name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+
+  <p>
+    <select name="group_id">
+      {% for group in groups %}
+      <option value="{{ group.group_id }}">{{ group.group_name }}</option>
+      {% endfor %}
+    </select>
+  </p>
+
+  <p>
+    <input type="submit">
+  </p>
+
+</form>
 
 {% endblock %}

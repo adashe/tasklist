@@ -68,7 +68,7 @@ def add_chore_to_group(group_id, chore_id):
 
 
 def get_chores_by_group(group_id):
-    """Return all users in a group."""
+    """Return all chores in a group."""
 
     return GroupChore.query.filter_by(group_id=group_id).all()
 

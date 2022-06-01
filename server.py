@@ -21,23 +21,27 @@ def show_homepage():
     return render_template("homepage.html")
 
 
-@app.route("/users")
-def show_users():
-    """Shows users."""
+@app.route("/login", methods=['POST'])
+def user_login():
+    """Check the password and log in."""
 
-    users = crud.get_users()
+    username = request.form['username']
+    password = request.form["password"]
 
-    return render_template("users.html", users=users)
+    user = crud.get_user_by_username(username)
 
+    if user:
+        if user.password == password:
+            session['user_id']= user.user_id
+            flash('Logged in!')
+            return redirect('/tasklist')
+        else:
+            flash('Wrong password.')
+            
+    else:
+        flash("Please create an account.")
 
-@app.route("/users/<user_id>")
-def show_user_profile(user_id):
-    """Shows user profiles."""
-
-    user = crud.get_user_by_id(user_id)
-    assignments = crud.get_assignments_by_user_id(user_id)
-
-    return render_template("user_profile.html", user=user, assignments=assignments)
+    return redirect('/')
 
 
 @app.route("/users", methods=["POST"])
@@ -59,45 +63,23 @@ def register_user():
     return redirect("/")
 
 
-@app.route("/groups")
-def show_groups():
-    """Shows groups."""
+@app.route("/users")
+def show_users():
+    """Shows users."""
 
-    groups = crud.get_groups()
+    users = crud.get_users()
 
-    return render_template("groups.html", groups=groups)
-
-
-@app.route("/groups/<group_id>")
-def show_group_details(group_id):
-    """Shows group details."""
-
-    group = crud.get_group_by_id(group_id)
-    chores = crud.get_chores_by_group(group_id)
-
-    return render_template("group_profile.html", group=group)
+    return render_template("users.html", users=users)
 
 
-@app.route("/login", methods=['POST'])
-def user_login():
-    """Check the password and log in."""
+@app.route("/users/<user_id>")
+def show_user_profile(user_id):
+    """Shows user profiles."""
 
-    username = request.form['username']
-    password = request.form["password"]
+    user = crud.get_user_by_id(user_id)
+    assignments = crud.get_assignments_by_user_id(user_id)
 
-    user = crud.get_user_by_username(username)
-
-    if user:
-        if user.password == password:
-            session['user_id']= user.user_id
-            flash('Logged in!')
-        else:
-            flash('Wrong password.')
-
-    else:
-        flash("Please create an account.")
-
-    return redirect('/tasklist')
+    return render_template("user_profile.html", user=user, assignments=assignments)
 
 
 @app.route("/tasklist")
@@ -124,6 +106,45 @@ def add_assignment():
     flash("You have assigned a new chore!")
 
     return redirect("/tasklist")
+
+
+@app.route("/groups")
+def show_groups():
+    """Shows groups."""
+
+    groups = crud.get_groups()
+
+    return render_template("groups.html", groups=groups)
+
+
+@app.route("/groups/<group_id>")
+def show_group_details(group_id):
+    """Shows group details."""
+
+    group = crud.get_group_by_id(group_id)
+
+    group_users = crud.get_users_by_group(group_id)
+    group_chores = crud.get_chores_by_group(group_id)
+
+    chores = crud.get_chores()
+    groups = crud.get_groups()
+
+    return render_template("group_profile.html", group=group, group_users=group_users, group_chores=group_chores, chores=chores, groups=groups)
+
+
+@app.route("/add-group-chore", methods=["POST"])
+def add_group_chore():
+    """Add a new chore to the group chore library."""
+
+    chore_id = request.form['chore_id']
+    group_id = request.form['group_id']
+
+    new_group_chore = crud.add_chore_to_group(group_id, chore_id)
+    db.session.add(new_group_chore)
+    db.session.commit()
+    flash("You have added a new chore to the group chore library!")
+
+    return redirect("/groups")
 
 
 @app.route("/add-chore", methods=["POST"])
