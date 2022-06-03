@@ -99,13 +99,15 @@ class Assignment(db.Model):
                         primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     chore_id = db.Column(db.Integer, db.ForeignKey('chores.chore_id'))
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.group_id'))
     complete = db.Column(db.Boolean)
 
     user = db.relationship("User", backref="assignments")
     chore = db.relationship("Chore", backref="assignments")
+    group = db.relationship("Group", backref="assignments")
 
     def __repr__(self):
-        return f'<Assignment assignment_id={self.assignment_id} user={self.user.username} chore={self.chore.chore_name} complete={self.complete}>'
+        return f'<Assignment assignment_id={self.assignment_id} user={self.user.username} chore={self.chore.chore_name} group={self.group.group_name} complete={self.complete}>'
 
 
 def connect_to_db(app, db_uri="postgresql:///tasklist", echo=True):

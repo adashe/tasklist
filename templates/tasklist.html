@@ -18,43 +18,18 @@
 </ul>
 
 
-<h2>Assign A Chore</h2>
-<form action="/add-assignment" method="POST">
+<h2>Add New Group</h2>
+<form action="/add-group" method="POST">
   <p>
-    Chores 
-    <select name="chore_id">
-      {% for chore in chores %}
-      <option value="{{ chore.chore_id }}">{{ chore.chore_name }}</option>
-      {% endfor %}
-    </select>
+    Group Name <input type="text" name="group_name">
   </p>
 
   <p>
-  Users 
-    <select name="user_id">
-      {% for user in users %}
-      <option value="{{ user.user_id }}">{{ user.username }}</option>
-      {% endfor %}
-    </select>
+    Group Description <input type="text" name="group_description">
   </p>
   
   <p>
     <input type="submit">
   </p>
-</form>
-
-<h2>Add New Chore to Library</h2>
-<form action="/add-chore" method="POST">
-<p>
-  Chore Name <input type="text" name="chore_name">
-</p>
-
-<p>
-  Chore Description <input type="text" name="chore_description">
-</p>
-
-<p>
-  <input type="submit">
-</p>
 </form>
 {% endblock %}

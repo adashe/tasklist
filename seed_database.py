@@ -40,11 +40,11 @@ model.db.session.add_all(chores_in_db)
 
 ## ADD ASSIGNMENTS ##
 
-assignment1 = crud.create_assignment(1, 1)
-assignment2 = crud.create_assignment(2, 2)
-assignment3 = crud.create_assignment(3, 3)
-assignment4 = crud.create_assignment(3, 4)
-assignment5 = crud.create_assignment(4, 3)
+assignment1 = crud.create_assignment(1, 1, 1)
+assignment2 = crud.create_assignment(2, 2, 1)
+assignment3 = crud.create_assignment(3, 3, 2)
+assignment4 = crud.create_assignment(3, 4, 2)
+assignment5 = crud.create_assignment(4, 3, 2)
 
 assignments_in_db = [assignment1, assignment2, assignment3, assignment4, assignment5]
 

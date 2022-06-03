@@ -101,10 +101,13 @@ def get_chore_descr_by_chore_name(chore_name):
 
 ## ASSIGNMENT FUNCTIONS ##
 
-def create_assignment(user_id, chore_id, complete=False):
+def create_assignment(user_id, chore_id, group_id, complete=False):
     """Create and return a new assignment."""
 
-    return Assignment(user_id=user_id, chore_id=chore_id, complete=complete)
+    return Assignment(user_id=user_id, 
+                    chore_id=chore_id, 
+                    group_id=group_id, 
+                    complete=complete)
 
 
 def get_assignments():

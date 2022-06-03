@@ -12,12 +12,14 @@
   <tr>
     <th>Chore Name</th>
     <th>Chore Description</th>
+    <th>Group</th>
     <th>Chore Complete?</th>
   </tr>
   {% for assignment in assignments %}
   <tr>
     <td>{{ assignment.chore.chore_name }}</td>
     <td>{{ assignment.chore.chore_description }}</td>
+    <td>{{ assignment.group.group_name}}</td>
     <td>{{ assignment.complete }}</td>
   </tr>
   {% endfor %}

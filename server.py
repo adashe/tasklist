@@ -97,10 +97,11 @@ def show_tasklist():
 def add_assignment():
     """Create a new assignment."""
 
-    chore_id = request.form['chore_id']
+    chore_id = request.form["chore_id"]
     user_id = request.form["user_id"]
+    group_id = request.form["group_id"]
     
-    new_assignment = crud.create_assignment(user_id, chore_id)
+    new_assignment = crud.create_assignment(user_id, chore_id, group_id)
     db.session.add(new_assignment)
     db.session.commit()
     flash("You have assigned a new chore!")
@@ -117,6 +118,21 @@ def show_groups():
     return render_template("groups.html", groups=groups)
 
 
+@app.route("/add-group", methods=["POST"])
+def add_group():
+    """Create a new group."""
+
+    group_name = request.form['group_name']
+    group_description = request.form["group_description"]
+    
+    new_group = crud.create_group(group_name, group_description)
+    db.session.add(new_group)
+    db.session.commit()
+    flash("You have added a new group!")
+
+    return redirect("/tasklist")
+
+
 @app.route("/groups/<group_id>")
 def show_group_details(group_id):
     """Shows group details."""
@@ -128,8 +144,9 @@ def show_group_details(group_id):
 
     chores = crud.get_chores()
     groups = crud.get_groups()
+    users = crud.get_users()
 
-    return render_template("group_profile.html", group=group, group_users=group_users, group_chores=group_chores, chores=chores, groups=groups)
+    return render_template("group_profile.html", group=group, group_users=group_users, group_chores=group_chores, chores=chores, groups=groups, users=users)
 
 
 @app.route("/add-group-chore", methods=["POST"])
@@ -144,7 +161,7 @@ def add_group_chore():
     db.session.commit()
     flash("You have added a new chore to the group chore library!")
 
-    return redirect("/groups")
+    return redirect("/tasklist")
 
 
 @app.route("/add-chore", methods=["POST"])
@@ -158,6 +175,21 @@ def add_chore():
     db.session.add(new_chore)
     db.session.commit()
     flash("You have added a new chore!")
+
+    return redirect("/tasklist")
+
+
+@app.route("/add-group-user", methods=["POST"])
+def add_group_user():
+    """Add a new user to the group."""
+
+    user_id = request.form['user_id']
+    group_id = request.form['group_id']
+
+    new_group_user = crud.add_user_to_group(group_id, user_id)
+    db.session.add(new_group_user)
+    db.session.commit()
+    flash("You have added a new user to the group!")
 
     return redirect("/tasklist")
 
