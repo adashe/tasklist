@@ -146,7 +146,7 @@ def show_group_details(group_id):
     groups = crud.get_groups()
     users = crud.get_users()
 
-    return render_template("group_profile.html", group=group, group_users=group_users, group_chores=group_chores, chores=chores, groups=groups, users=users)
+    return render_template("group_profile.html", group_id=group_id, group=group, group_users=group_users, group_chores=group_chores, chores=chores, groups=groups, users=users)
 
 
 @app.route("/add-group-chore", methods=["POST"])
@@ -191,7 +191,7 @@ def add_group_user():
     db.session.commit()
     flash("You have added a new user to the group!")
 
-    return redirect("/tasklist")
+    return redirect("tasklist")
 
 # @app.route("/mark-complete", methods=["POST"])
 # def mark_complete():

@@ -18,17 +18,10 @@
   {% endfor %}
 </ul>
 
-<h2>Add User to Group</h2>
+<h2>Add A User to This Group</h2>
 <form action="/add-group-user" method="POST">
-  <p>
-    <select name="group_id">
-      {% for group in groups %}
-      <option value="{{ group.group_id }}">{{ group.group_name }}</option>
-      {% endfor %}
-    </select>
-  </p>
 
-  <!-- <input type="hidden" name="group_id" value="{{ group.group_id }}"> -->
+  <input type="hidden" name="group_id" value="{{ group_id }}">
 
   <p>
     <select name="user_id">
@@ -55,13 +48,8 @@
 
 <h2>Add Chore to Group Library</h2>
 <form action="/add-group-chore" method="POST">
-  <p>
-    <select name="group_id">
-      {% for group in groups %}
-      <option value="{{ group.group_id }}">{{ group.group_name }}</option>
-      {% endfor %}
-    </select>
-  </p>
+
+  <input type="hidden" name="group_id" value="{{ group_id }}">
 
   <p>
     <select name="chore_id">
@@ -91,7 +79,7 @@
 </p>
 </form>
 
-<h2>Assign A Chore</h2>
+<h2>Assign A Chore to a User in This Group</h2>
 <form action="/add-assignment" method="POST">
   <p>
     Chores 
@@ -111,14 +99,7 @@
     </select>
   </p>
 
-  <p>
-    Group 
-      <select name="group_id">
-        {% for group in groups %}
-        <option value="{{ group.group_id }}">{{ group.group_name }}</option>
-        {% endfor %}
-      </select>
-    </p>
+  <input type="hidden" name="group_id" value="{{ group_id }}">
   
   <p>
     <input type="submit">
