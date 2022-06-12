@@ -106,7 +106,7 @@ def add_assignment():
     db.session.commit()
     flash("You have assigned a new chore!")
 
-    return redirect("/tasklist")
+    return redirect(f'/groups/{ group_id }')
 
 
 @app.route("/groups")
@@ -161,7 +161,7 @@ def add_group_chore():
     db.session.commit()
     flash("You have added a new chore to the group chore library!")
 
-    return redirect("/tasklist")
+    return redirect(f'/groups/{ group_id }')
 
 
 @app.route("/add-chore", methods=["POST"])
@@ -170,13 +170,14 @@ def add_chore():
 
     chore_name = request.form['chore_name']
     chore_description = request.form["chore_description"]
+    group_id = request.form['group_id']
     
     new_chore = crud.create_chore(chore_name, chore_description)
     db.session.add(new_chore)
     db.session.commit()
     flash("You have added a new chore!")
 
-    return redirect("/tasklist")
+    return redirect(f'/groups/{ group_id }')
 
 
 @app.route("/add-group-user", methods=["POST"])
@@ -191,7 +192,7 @@ def add_group_user():
     db.session.commit()
     flash("You have added a new user to the group!")
 
-    return redirect("tasklist")
+    return redirect(f'/groups/{ group_id }')
 
 # @app.route("/mark-complete", methods=["POST"])
 # def mark_complete():

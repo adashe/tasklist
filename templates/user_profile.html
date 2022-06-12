@@ -17,12 +17,19 @@
   </tr>
   {% for assignment in assignments %}
   <tr>
-    <td>{{ assignment.chore.chore_name }}</td>
-    <td>{{ assignment.chore.chore_description }}</td>
-    <td>{{ assignment.group.group_name}}</td>
-    <td>{{ assignment.complete }}</td>
+    <td> {{ assignment.chore.chore_name }} </td>
+    <td> {{ assignment.chore.chore_description }} </td>
+    <td> {{ assignment.group.group_name }} </td>
+    <td> {{ assignment.complete }} </td>
+    <td>
+      <form>
+        <button id="complete-button" type="submit">Mark Complete / Incomplete</button>
+      </form>
+    </td>
   </tr>
   {% endfor %}
 </table>
+
+<script src="/static/js/tasklist.js"></script>
 
 {% endblock %}
