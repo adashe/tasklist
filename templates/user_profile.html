@@ -22,14 +22,21 @@
     <td> {{ assignment.group.group_name }} </td>
     <td> {{ assignment.complete }} </td>
     <td>
-      <form>
-        <button id="complete-button" type="submit">Mark Complete / Incomplete</button>
+      <form action="/mark-complete" method="POST">  
+
+        <input type="hidden" name="user_id" value="{{ user.user_id }}">
+        <input type="hidden" name="assignment_id" value="{{ assignment.assignment_id }}">
+
+        <button type="submit"> 
+          Mark Complete
+        </button>
+
       </form>
     </td>
   </tr>
   {% endfor %}
 </table>
 
-<script src="/static/js/tasklist.js"></script>
+<!-- <script src="/static/js/tasklist.js"></script> -->
 
 {% endblock %}

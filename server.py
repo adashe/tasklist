@@ -194,17 +194,20 @@ def add_group_user():
 
     return redirect(f'/groups/{ group_id }')
 
-# @app.route("/mark-complete", methods=["POST"])
-# def mark_complete():
 
-#     assignment_id = request.form['assignment_id']
+@app.route("/mark-complete", methods=["POST"])
+def mark_complete():
 
-#     completed_assignment = crud.mark_assignment_complete(assignment_id)   
+    assignment_id = request.form['assignment_id']
+    user_id = request.form['user_id']
 
-#     db.session.add(completed_assignment)
-#     db.session.commit()
+    crud.mark_assignment_complete(assignment_id)   
 
-#     return render_template("user_profile.html")
+    db.session.commit()
+
+    flash("You have marked an assignment complete!")
+
+    return redirect(f'/users/{ user_id }')
 
 
 if __name__ == '__main__':

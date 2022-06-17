@@ -1,5 +1,12 @@
-const button = document.querySelector('#complete-button');
 
-button.addEventListener('click', () => {
-  alert('Chore completed!');
-});
+const completeButton = document.querySelector('#complete-button');
+
+function toggleComplete() {
+  if (completeButton.innerText === 'Incomplete') {
+    completeButton.innerText = 'Complete';
+  } else if (completeButton.innerText === 'Complete') {
+    completeButton.innerText = 'Incomplete';
+  }
+}
+
+completeButton.addEventListener('click', toggleComplete);
