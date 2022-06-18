@@ -22,13 +22,25 @@
     <td> {{ assignment.group.group_name }} </td>
     <td> {{ assignment.complete }} </td>
     <td>
-      <form action="/mark-complete" method="POST">  
+      <form action="/toggle-complete" method="POST">  
 
         <input type="hidden" name="user_id" value="{{ user.user_id }}">
         <input type="hidden" name="assignment_id" value="{{ assignment.assignment_id }}">
 
         <button type="submit"> 
-          Mark Complete
+          Toggle Complete
+        </button>
+
+      </form>
+    </td>
+    <td>
+      <form action="/delete-assignment" method="POST">  
+
+        <input type="hidden" name="user_id" value="{{ user.user_id }}">
+        <input type="hidden" name="assignment_id" value="{{ assignment.assignment_id }}">
+
+        <button type="submit"> 
+          Delete
         </button>
 
       </form>
@@ -36,7 +48,5 @@
   </tr>
   {% endfor %}
 </table>
-
-<!-- <script src="/static/js/tasklist.js"></script> -->
 
 {% endblock %}

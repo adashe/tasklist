@@ -49,6 +49,12 @@ def get_group_by_id(group_id):
     return Group.query.get(group_id)
 
 
+def get_group_user(group_id, user_id):
+    """Return a group user."""
+
+    return Group.query.filter_by(group_id=group_id, user_id=user_id).first()
+
+
 def add_user_to_group(group_id, user_id):
     """Add a user to a group."""
 
@@ -144,14 +150,19 @@ def get_assignments_by_user_id(user_id):
     return Assignment.query.filter(Assignment.user_id == user_id).all()
 
 
-def mark_assignment_complete(assignment_id):
+def toggle_complete(assignment_id):
     """Mark an assignment complete."""
 
     assignment = get_assignment_by_assignment_id(assignment_id)
 
-    assignment.complete = True
+    if assignment.complete == False:
+        assignment.complete = True
+    
+    elif assignment.complete == True:
+        assignment.complete = False
     
     return assignment
+
 
 
 if __name__ == '__main__':

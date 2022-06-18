@@ -195,19 +195,34 @@ def add_group_user():
     return redirect(f'/groups/{ group_id }')
 
 
-@app.route("/mark-complete", methods=["POST"])
+@app.route("/toggle-complete", methods=["POST"])
 def mark_complete():
 
     assignment_id = request.form['assignment_id']
     user_id = request.form['user_id']
 
-    crud.mark_assignment_complete(assignment_id)   
+    crud.toggle_complete(assignment_id)   
 
     db.session.commit()
 
-    flash("You have marked an assignment complete!")
+    flash("You have changed the assignment status!")
 
     return redirect(f'/users/{ user_id }')
+
+
+@app.route("/delete-assignment", methods=["POST"])
+def delete_assignment():
+
+    assignment_id = request.form['assignment_id']
+    user_id = request.form['user_id']
+
+    assignment = crud.get_assignment_by_assignment_id(assignment_id)
+
+    db.session.delete(assignment)
+    db.session.commit()
+
+    return redirect(f'/users/{ user_id }')
+
 
 
 if __name__ == '__main__':
