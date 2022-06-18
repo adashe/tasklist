@@ -221,8 +221,42 @@ def delete_assignment():
     db.session.delete(assignment)
     db.session.commit()
 
+    flash("You have deleted an assignment!")
+
     return redirect(f'/users/{ user_id }')
 
+
+@app.route("/delete-group-user", methods=["POST"])
+def delete_group_user():
+
+    user_id = request.form['user_id']
+    group_id = request.form['group_id']
+
+    group_user = crud.get_group_user(group_id, user_id)
+
+    db.session.delete(group_user)
+    db.session.commit()
+
+    flash("You have removed a user from this group!")
+
+    return redirect(f'/groups/{ group_id }')
+
+
+@app.route("/delete-group", methods=["POST"])
+def delete_group():
+
+    group_id = request.form['group_id']
+
+    group = crud.get_group_by_id(group_id)
+    group_users = crud.get_users_by_group(group_id)
+    group_chores = crud.get_chores_by_group(group_id)
+
+    db.session.delete(group)
+    db.session.commit
+
+    flash("You have deleted a group!")
+
+    return redirect("/")
 
 
 if __name__ == '__main__':

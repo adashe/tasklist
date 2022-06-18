@@ -15,6 +15,18 @@
       {{ group_user.user.username }}
     </a>
   </li>
+  <li>
+    <form action="/delete-group-user" method="POST">  
+
+      <input type="hidden" name="user_id" value="{{ group_user.user.user_id }}">
+      <input type="hidden" name="group_id" value="{{ group_user.group.group_id }}">
+
+      <button type="submit"> 
+        Remove {{ group_user.user.username }} from this group.
+      </button>
+
+    </form>
+  </li>
   {% endfor %}
 </ul>
 
@@ -106,6 +118,16 @@
   <p>
     <input type="submit">
   </p>
+</form>
+
+<form action="/delete-group" method="POST">  
+
+  <input type="hidden" name="group_id" value="{{ group_id }}">
+
+  <button type="submit"> 
+    Delete this group!
+  </button>
+
 </form>
 
 {% endblock %}
