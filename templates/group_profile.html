@@ -3,6 +3,8 @@
 {% block title %}Group Details{% endblock %}
 
 {% block body %}
+<a href="/tasklist">Return to Home</a>
+
 <h1>{{ group.group_name }}</h1>
 
 <h2>{{ group.group_name }}'s Members</h2>
@@ -14,8 +16,6 @@
     <a href="/users/{{ group_user.user.user_id }}">
       {{ group_user.user.username }}
     </a>
-  </li>
-  <li>
     <form action="/delete-group-user" method="POST">  
 
       <input type="hidden" name="user_id" value="{{ group_user.user.user_id }}">
@@ -44,7 +44,7 @@
   </p>
 
   <p>
-    <input type="submit">
+    <button type="submit">Add User to Group</button>
   </p>
 </form>
 
@@ -72,7 +72,7 @@
   </p>
 
   <p>
-    <input type="submit">
+    <button type="submit">Add Chore to Library</button>
   </p>
 </form>
 
@@ -89,7 +89,7 @@
 <input type="hidden" name="group_id" value="{{ group_id }}">
 
 <p>
-  <input type="submit">
+  <button type="submit">Create Chore</button>
 </p>
 </form>
 
@@ -116,7 +116,7 @@
   <input type="hidden" name="group_id" value="{{ group_id }}">
   
   <p>
-    <input type="submit">
+    <button type="submit">Assign Chore</button>
   </p>
 </form>
 

@@ -104,6 +104,7 @@ def add_assignment():
     new_assignment = crud.create_assignment(user_id, chore_id, group_id)
     db.session.add(new_assignment)
     db.session.commit()
+    
     flash("You have assigned a new chore!")
 
     return redirect(f'/groups/{ group_id }')
@@ -128,6 +129,7 @@ def add_group():
     new_group = crud.create_group(group_name, group_description)
     db.session.add(new_group)
     db.session.commit()
+
     flash("You have added a new group!")
 
     return redirect("/tasklist")
@@ -159,6 +161,7 @@ def add_group_chore():
     new_group_chore = crud.add_chore_to_group(group_id, chore_id)
     db.session.add(new_group_chore)
     db.session.commit()
+
     flash("You have added a new chore to the group chore library!")
 
     return redirect(f'/groups/{ group_id }')
@@ -175,6 +178,7 @@ def add_chore():
     new_chore = crud.create_chore(chore_name, chore_description)
     db.session.add(new_chore)
     db.session.commit()
+
     flash("You have added a new chore!")
 
     return redirect(f'/groups/{ group_id }')
@@ -190,6 +194,7 @@ def add_group_user():
     new_group_user = crud.add_user_to_group(group_id, user_id)
     db.session.add(new_group_user)
     db.session.commit()
+
     flash("You have added a new user to the group!")
 
     return redirect(f'/groups/{ group_id }')
@@ -233,11 +238,16 @@ def delete_group_user():
     group_id = request.form['group_id']
 
     group_user = crud.get_group_user(group_id, user_id)
+    group_user_assignments = crud.get_assignments_by_group_user(group_id, user_id)
+
+    for group_user_assignment in group_user_assignments:
+        db.session.delete(group_user_assignment)
 
     db.session.delete(group_user)
+
     db.session.commit()
 
-    flash("You have removed a user from this group!")
+    flash("You have removed a user and their assignments from this group!")
 
     return redirect(f'/groups/{ group_id }')
 
@@ -250,11 +260,22 @@ def delete_group():
     group = crud.get_group_by_id(group_id)
     group_users = crud.get_users_by_group(group_id)
     group_chores = crud.get_chores_by_group(group_id)
+    group_assignments = crud.get_assignments_by_group_id(group_id)
+
+    for group_user in group_users:
+        db.session.delete(group_user)
+
+    for group_chore in group_chores:
+        db.session.delete(group_chore)
+
+    for group_assignment in group_assignments:
+        db.session.delete(group_assignment)
 
     db.session.delete(group)
-    db.session.commit
 
-    flash("You have deleted a group!")
+    db.session.commit()
+
+    flash("You have deleted a group and all of its data!")
 
     return redirect("/")
 

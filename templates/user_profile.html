@@ -3,6 +3,7 @@
 {% block title %}User Details{% endblock %}
 
 {% block body %}
+
 <h1>{{ user.username }}</h1>
 
 <h2>{{ user.username }}'s Assignments</h2>
@@ -19,7 +20,7 @@
   <tr>
     <td> {{ assignment.chore.chore_name }} </td>
     <td> {{ assignment.chore.chore_description }} </td>
-    <td> {{ assignment.group.group_name }} </td>
+    <td><a href="/groups/{{ assignment.group.group_id}}">{{ assignment.group.group_name }}</a></td>
     <td> {{ assignment.complete }} </td>
     <td>
       <form action="/toggle-complete" method="POST">  

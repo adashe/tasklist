@@ -147,13 +147,19 @@ def get_chore_by_assignment_id(assignment_id):
 def get_assignments_by_user_id(user_id):
     """Return all chores assigned to a user."""
 
-    return Assignment.query.filter(Assignment.user_id == user_id).all()
+    return Assignment.query.filter_by(user_id=user_id).all()
 
 
 def get_assignments_by_group_id(group_id):
     """Return all chores assigned in a group."""
 
-    return Assignment.query.filter(Assignment.group_id == group_id).all()
+    return Assignment.query.filter_by(group_id=group_id).all()
+
+
+def get_assignments_by_group_user(group_id, user_id):
+    """Return all assigned chores belonging to a user within a group."""
+
+    return Assignment.query.filter_by(group_id=group_id, user_id=user_id).all()
 
 
 def toggle_complete(assignment_id):
