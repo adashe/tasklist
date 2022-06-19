@@ -32,7 +32,7 @@ def user_login():
 
     if user:
         if user.password == password:
-            session['user_id']= user.user_id
+            session['user_id'] = user.user_id
             flash('Logged in!')
             return redirect('/tasklist')
         else:
@@ -42,6 +42,17 @@ def user_login():
         flash("Please create an account.")
 
     return redirect('/')
+
+
+# @app.route("/logout")
+# def user_logout():
+#     """Log out."""
+
+#     session['user_id'] = None
+
+#     flash("You have been logged out.")
+
+#     return redirect('/')
 
 
 @app.route("/users", methods=["POST"])
@@ -104,7 +115,7 @@ def add_assignment():
     new_assignment = crud.create_assignment(user_id, chore_id, group_id)
     db.session.add(new_assignment)
     db.session.commit()
-    
+
     flash("You have assigned a new chore!")
 
     return redirect(f'/groups/{ group_id }')
