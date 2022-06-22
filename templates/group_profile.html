@@ -10,25 +10,34 @@
 <h2>{{ group.group_name }}'s Members</h2>
 
 <h3>Click on a user to see their assigned tasks.</h3>
-<ul>
+<table>
+  <tr>
+    <th>One</th>
+    <th>Two</th>
+    <th>Three</th>
+  </tr>
   {% for group_user in group_users %}
-  <li>
-    <a href="/users/{{ group_user.user.user_id }}">
-      {{ group_user.user.username }}
-    </a>
-    <form action="/delete-group-user" method="POST">  
+  <tr>
+    <td>
+      <a href="/users/{{ group_user.user.user_id }}">
+        {{ group_user.user.username }}
+      </a>
+    </td>
+    <td>
+      <form action="/delete-group-user" method="POST">  
 
-      <input type="hidden" name="user_id" value="{{ group_user.user.user_id }}">
-      <input type="hidden" name="group_id" value="{{ group_user.group.group_id }}">
+        <input type="hidden" name="user_id" value="{{ group_user.user.user_id }}">
+        <input type="hidden" name="group_id" value="{{ group_user.group.group_id }}">
 
-      <button type="submit"> 
-        Remove {{ group_user.user.username }} from this group.
-      </button>
+        <button type="submit"> 
+          Remove {{ group_user.user.username }} from this group.
+        </button>
 
-    </form>
-  </li>
+      </form>
+    </td>
+  </tr>
   {% endfor %}
-</ul>
+</table>
 
 <h2>Add A User to This Group</h2>
 <form action="/add-group-user" method="POST">

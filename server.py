@@ -44,15 +44,15 @@ def user_login():
     return redirect('/')
 
 
-# @app.route("/logout")
-# def user_logout():
-#     """Log out."""
+@app.route("/logout")
+def user_logout():
+    """Log out."""
 
-#     session['user_id'] = None
+    del session['user_id']
 
-#     flash("You have been logged out.")
+    flash("You have been logged out.")
 
-#     return redirect('/')
+    return redirect('/')
 
 
 @app.route("/users", methods=["POST"])
@@ -78,6 +78,9 @@ def register_user():
 def show_users():
     """Shows users."""
 
+    if 'user_id' not in session:
+        return redirect('/')
+
     users = crud.get_users()
 
     return render_template("users.html", users=users)
@@ -86,6 +89,9 @@ def show_users():
 @app.route("/users/<user_id>")
 def show_user_profile(user_id):
     """Shows user profiles."""
+
+    if 'user_id' not in session:
+        return redirect('/')
 
     user = crud.get_user_by_id(user_id)
     assignments = crud.get_assignments_by_user_id(user_id)
@@ -96,6 +102,9 @@ def show_user_profile(user_id):
 @app.route("/tasklist")
 def show_tasklist():
     """Shows tasklist."""
+
+    if 'user_id' not in session:
+        return redirect('/')
 
     users = crud.get_users()
     chores = crud.get_chores()
@@ -125,6 +134,9 @@ def add_assignment():
 def show_groups():
     """Shows groups."""
 
+    if 'user_id' not in session:
+        return redirect('/')
+
     groups = crud.get_groups()
 
     return render_template("groups.html", groups=groups)
@@ -150,16 +162,20 @@ def add_group():
 def show_group_details(group_id):
     """Shows group details."""
 
+    if 'user_id' not in session:
+        return redirect('/')
+
     group = crud.get_group_by_id(group_id)
 
     group_users = crud.get_users_by_group(group_id)
     group_chores = crud.get_chores_by_group(group_id)
+    group_assignments = crud.get_assignments_by_group_id(group_id)
 
     chores = crud.get_chores()
     groups = crud.get_groups()
     users = crud.get_users()
 
-    return render_template("group_profile.html", group_id=group_id, group=group, group_users=group_users, group_chores=group_chores, chores=chores, groups=groups, users=users)
+    return render_template("group_profile.html", group_id=group_id, group=group, group_users=group_users, group_chores=group_chores, group_assignments=group_assignments, chores=chores, groups=groups, users=users)
 
 
 @app.route("/add-group-chore", methods=["POST"])
