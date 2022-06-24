@@ -49,6 +49,12 @@ def get_group_by_id(group_id):
     return Group.query.get(group_id)
 
 
+def get_groups_by_user_id(user_id):
+    """Return all groups that a user has joined."""
+
+    return GroupUser.query.filter_by(user_id=user_id).all()
+
+
 def add_user_to_group(group_id, user_id):
     """Add a user to a group."""
 

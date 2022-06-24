@@ -3,36 +3,53 @@
 {% block title %}Tasklist{% endblock %}
 
 {% block body %}
-<form action="/logout">
-  <button type="submit">Logout</button>
-</form>
+<div class="container">
 
-<h1>Tasklist</h1>
+  <div class="row">
+    <div class="col">
+      <form action="/logout">
+        <button type="submit">Logout</button>
+      </form>
+    </div>
+  </div>
 
-<h2>Click on a group to view group members and assign tasks.</h2>
-<ul>
-  {% for group in groups %}
-  <li>
-      <a href="/groups/{{ group.group_id }}">
-          {{ group.group_name }}
-        </a>
-  </li>
-  {% endfor %}
-</ul>
-
-
-<h2>Add New Group</h2>
-<form action="/add-group" method="POST">
-  <p>
-    Group Name <input type="text" name="group_name">
-  </p>
-
-  <p>
-    Group Description <input type="text" name="group_description">
-  </p>
+  <div class="row">
+    <div class="col">
+      <h1>Tasklist</h1>
+    </div>
+  </div>
   
-  <p>
-    <input type="submit">
-  </p>
-</form>
+  <div class="row">
+    <div class="col">
+      <h2>Your Tasklist Groups</h2>
+      <ul>
+        {% for users_group in users_groups %}
+        <li>
+            <a href="/groups/{{ users_group.group_id }}">
+                {{ users_group.group.group_name }}
+              </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="col">
+      <h2>Create New Group</h2>
+      <form action="/add-group" method="POST">
+        <p>
+          Group Name <input type="text" name="group_name">
+        </p>
+
+        <p>
+          Group Description <input type="text" name="group_description">
+        </p>
+        
+        <p>
+          <input type="submit">
+        </p>
+      </form>
+    </div>
+
+  </div>
+</div>
 {% endblock %}

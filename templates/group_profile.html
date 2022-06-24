@@ -3,140 +3,155 @@
 {% block title %}Group Details{% endblock %}
 
 {% block body %}
-<a href="/tasklist">Return to Home</a>
 
-<h1>{{ group.group_name }}</h1>
+<div class="container">
 
-<h2>{{ group.group_name }}'s Members</h2>
+  <div class="row">
+    <a href="/tasklist">Return to Home</a>
 
-<h3>Click on a user to see their assigned tasks.</h3>
-<table>
-  <tr>
-    <th>One</th>
-    <th>Two</th>
-    <th>Three</th>
-  </tr>
-  {% for group_user in group_users %}
-  <tr>
-    <td>
-      <a href="/users/{{ group_user.user.user_id }}">
-        {{ group_user.user.username }}
-      </a>
-    </td>
-    <td>
-      <form action="/delete-group-user" method="POST">  
+    <h1>{{ group.group_name }}</h1>
 
-        <input type="hidden" name="user_id" value="{{ group_user.user.user_id }}">
-        <input type="hidden" name="group_id" value="{{ group_user.group.group_id }}">
+    <h2>{{ group.group_name }}'s Members</h2>
 
-        <button type="submit"> 
-          Remove {{ group_user.user.username }} from this group.
-        </button>
-
-      </form>
-    </td>
-  </tr>
-  {% endfor %}
-</table>
-
-<h2>Add A User to This Group</h2>
-<form action="/add-group-user" method="POST">
-
-  <input type="hidden" name="group_id" value="{{ group_id }}">
-
-  <p>
-    <select name="user_id">
-      {% for user in users %}
-      <option value="{{ user.user_id }}">{{ user.username }}</option>
-      {% endfor %}
-    </select>
-  </p>
-
-  <p>
-    <button type="submit">Add User to Group</button>
-  </p>
-</form>
-
-<h2>{{ group.group_name }}'s Chore Library</h2>
-
-<ul>
-  {% for group_chore in group_chores %}
-  <li>
-    {{ group_chore.chore.chore_name }}
-  </li>
-  {% endfor %}
-</ul>
-
-<h2>Add Chore to Group Library</h2>
-<form action="/add-group-chore" method="POST">
-
-  <input type="hidden" name="group_id" value="{{ group_id }}">
-
-  <p>
-    <select name="chore_id">
-      {% for chore in chores %}
-      <option value="{{ chore.chore_id }}">{{ chore.chore_name }}</option>
-      {% endfor %}
-    </select>
-  </p>
-
-  <p>
-    <button type="submit">Add Chore to Library</button>
-  </p>
-</form>
-
-<h2>Create New Chore</h2>
-<form action="/add-chore" method="POST">
-<p>
-  Chore Name <input type="text" name="chore_name">
-</p>
-
-<p>
-  Chore Description <input type="text" name="chore_description">
-</p>
-
-<input type="hidden" name="group_id" value="{{ group_id }}">
-
-<p>
-  <button type="submit">Create Chore</button>
-</p>
-</form>
-
-<h2>Assign A Chore to a User in This Group</h2>
-<form action="/add-assignment" method="POST">
-  <p>
-    Chores 
-    <select name="chore_id">
-      {% for group_chore in group_chores %}
-      <option value="{{ group_chore.chore.chore_id }}">{{ group_chore.chore.chore_name }}</option>
-      {% endfor %}
-    </select>
-  </p>
-
-  <p>
-  Users 
-    <select name="user_id">
+    <h3>Click on a user to see their assigned tasks.</h3>
+    <table>
       {% for group_user in group_users %}
-      <option value="{{ group_user.user.user_id }}">{{ group_user.user.username }}</option>
+      <tr>
+        <td>
+          <a href="/users/{{ group_user.user.user_id }}">
+            {{ group_user.user.username }}
+          </a>
+        </td>
+        <td>
+          <form action="/delete-group-user" method="POST">  
+
+            <input type="hidden" name="user_id" value="{{ group_user.user.user_id }}">
+            <input type="hidden" name="group_id" value="{{ group_user.group.group_id }}">
+
+            <button type="submit"> 
+              Remove {{ group_user.user.username }} from this group.
+            </button>
+
+          </form>
+        </td>
+      </tr>
       {% endfor %}
-    </select>
-  </p>
+    </table>
+  </div>
 
-  <input type="hidden" name="group_id" value="{{ group_id }}">
-  
-  <p>
-    <button type="submit">Assign Chore</button>
-  </p>
-</form>
+  <div class="row">
+    <h2>Add A User to This Group</h2>
+    <form action="/add-group-user" method="POST">
 
-<form action="/delete-group" method="POST">  
+      <input type="hidden" name="group_id" value="{{ group_id }}">
 
-  <input type="hidden" name="group_id" value="{{ group_id }}">
+      <p>
+        <select name="user_id">
+          {% for user in users %}
+          <option value="{{ user.user_id }}">{{ user.username }}</option>
+          {% endfor %}
+        </select>
+      </p>
 
-  <button type="submit"> 
-    Delete this group!
-  </button>
+      <p>
+        <button type="submit">Add User to Group</button>
+      </p>
+    </form>
+  </div>
 
-</form>
+  <div class="row">
+    <div class="col">
+      <h2>Assign A Chore to a User in This Group</h2>
+      <form action="/add-assignment" method="POST">
+        <p>
+          Chores 
+          <select name="chore_id">
+            {% for group_chore in group_chores %}
+            <option value="{{ group_chore.chore.chore_id }}">{{ group_chore.chore.chore_name }}</option>
+            {% endfor %}
+          </select>
+        </p>
+
+        <p>
+        Users 
+          <select name="user_id">
+            {% for group_user in group_users %}
+            <option value="{{ group_user.user.user_id }}">{{ group_user.user.username }}</option>
+            {% endfor %}
+          </select>
+        </p>
+
+        <input type="hidden" name="group_id" value="{{ group_id }}">
+        
+        <p>
+          <button type="submit">Assign Chore</button>
+        </p>
+      </form>
+    </div>
+
+    <!-- <div class="col">
+      <h2>{{ group.group_name }}'s Chore Library</h2>
+
+      <ul>
+        {% for group_chore in group_chores %}
+        <li>
+          {{ group_chore.chore.chore_name }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div> -->
+
+    <div class="col">
+      <h2>Add Chore to Group Library</h2>
+      <form action="/add-group-chore" method="POST">
+
+        <input type="hidden" name="group_id" value="{{ group_id }}">
+
+        <p>
+          <select name="chore_id">
+            {% for chore in chores %}
+            <option value="{{ chore.chore_id }}">{{ chore.chore_name }}</option>
+            {% endfor %}
+          </select>
+        </p>
+
+        <p>
+          <button type="submit">Add Chore to Library</button>
+        </p>
+      </form>
+    </div>
+
+    <div class="col">
+
+      <h2>Create New Chore</h2>
+      <form action="/add-chore" method="POST">
+      <p>
+        Chore Name <input type="text" name="chore_name">
+      </p>
+
+      <p>
+        Chore Description <input type="text" name="chore_description">
+      </p>
+
+      <input type="hidden" name="group_id" value="{{ group_id }}">
+
+      <p>
+        <button type="submit">Create Chore</button>
+      </p>
+      </form>
+    </div>
+
+  </div>
+
+  <form action="/delete-group" method="POST">  
+
+    <input type="hidden" name="group_id" value="{{ group_id }}">
+
+    <button type="submit"> 
+      Delete this group!
+    </button>
+
+  </form>
+</div>
 
 {% endblock %}

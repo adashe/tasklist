@@ -106,11 +106,13 @@ def show_tasklist():
     if 'user_id' not in session:
         return redirect('/')
 
+    user_id = session['user_id']
+
     users = crud.get_users()
     chores = crud.get_chores()
-    groups = crud.get_groups()
+    users_groups = crud.get_groups_by_user_id(user_id) #only show groups for this user
 
-    return render_template("tasklist.html", users=users, chores=chores, groups=groups)
+    return render_template("tasklist.html", users=users, chores=chores, users_groups=users_groups)
 
 
 @app.route("/add-assignment", methods=["POST"])
@@ -144,16 +146,29 @@ def show_groups():
 
 @app.route("/add-group", methods=["POST"])
 def add_group():
-    """Create a new group."""
+    """Create a new group and add user to that group."""
+
+    # Create a new group
 
     group_name = request.form['group_name']
     group_description = request.form["group_description"]
     
     new_group = crud.create_group(group_name, group_description)
     db.session.add(new_group)
+
     db.session.commit()
 
-    flash("You have added a new group!")
+    # Add the user to the new group
+
+    user_id = session['user_id']
+    group_id = new_group.group_id
+
+    new_group_user = crud.add_user_to_group(group_id, user_id)
+    db.session.add(new_group_user)
+
+    db.session.commit()
+
+    flash("You have created and joined a new group!")
 
     return redirect("/tasklist")
 
@@ -169,13 +184,12 @@ def show_group_details(group_id):
 
     group_users = crud.get_users_by_group(group_id)
     group_chores = crud.get_chores_by_group(group_id)
-    group_assignments = crud.get_assignments_by_group_id(group_id)
 
     chores = crud.get_chores()
     groups = crud.get_groups()
     users = crud.get_users()
 
-    return render_template("group_profile.html", group_id=group_id, group=group, group_users=group_users, group_chores=group_chores, group_assignments=group_assignments, chores=chores, groups=groups, users=users)
+    return render_template("group_profile.html", group_id=group_id, group=group, group_users=group_users, group_chores=group_chores, chores=chores, groups=groups, users=users)
 
 
 @app.route("/add-group-chore", methods=["POST"])

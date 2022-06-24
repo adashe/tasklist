@@ -3,16 +3,18 @@
 
 {% block body %}
 
-<h1>All Groups</h1>
+<div class="container">
 
-<ul>
+  <h1>All Groups</h1>
+
+  <ul>
     {% for group in groups %}
     <li>
-        <a href="/groups/{{ group.group_id }}">
-            {{ group.group_name }}
-          </a>
+      <a href="/groups/{{ group.group_id }}">
+        {{ group.group_name }}
+      </a>
     </li>
     {% endfor %}
   </ul>
-    
+</div>    
 {% endblock %}

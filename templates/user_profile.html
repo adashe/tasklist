@@ -4,50 +4,52 @@
 
 {% block body %}
 
-<h1>{{ user.username }}</h1>
+<div class="container">
 
-<h2>{{ user.username }}'s Assignments</h2>
+  <h1>{{ user.username }}</h1>
+
+  <h2>{{ user.username }}'s Assignments</h2>
 
 
-<table>
-  <tr>
-    <th>Chore Name</th>
-    <th>Chore Description</th>
-    <th>Group</th>
-    <th>Chore Complete?</th>
-  </tr>
-  {% for assignment in assignments %}
-  <tr>
-    <td> {{ assignment.chore.chore_name }} </td>
-    <td> {{ assignment.chore.chore_description }} </td>
-    <td><a href="/groups/{{ assignment.group.group_id}}">{{ assignment.group.group_name }}</a></td>
-    <td> {{ assignment.complete }} </td>
-    <td>
-      <form action="/toggle-complete" method="POST">  
+  <table>
+    <tr>
+      <th>Chore Name</th>
+      <th>Chore Description</th>
+      <th>Group</th>
+      <th>Chore Complete?</th>
+    </tr>
+    {% for assignment in assignments %}
+    <tr>
+      <td> {{ assignment.chore.chore_name }} </td>
+      <td> {{ assignment.chore.chore_description }} </td>
+      <td><a href="/groups/{{ assignment.group.group_id}}">{{ assignment.group.group_name }}</a></td>
+      <td> {{ assignment.complete }} </td>
+      <td>
+        <form action="/toggle-complete" method="POST">  
 
-        <input type="hidden" name="user_id" value="{{ user.user_id }}">
-        <input type="hidden" name="assignment_id" value="{{ assignment.assignment_id }}">
+          <input type="hidden" name="user_id" value="{{ user.user_id }}">
+          <input type="hidden" name="assignment_id" value="{{ assignment.assignment_id }}">
 
-        <button type="submit"> 
-          Toggle Complete
-        </button>
+          <button type="submit"> 
+            Toggle Complete
+          </button>
 
-      </form>
-    </td>
-    <td>
-      <form action="/delete-assignment" method="POST">  
+        </form>
+      </td>
+      <td>
+        <form action="/delete-assignment" method="POST">  
 
-        <input type="hidden" name="user_id" value="{{ user.user_id }}">
-        <input type="hidden" name="assignment_id" value="{{ assignment.assignment_id }}">
+          <input type="hidden" name="user_id" value="{{ user.user_id }}">
+          <input type="hidden" name="assignment_id" value="{{ assignment.assignment_id }}">
 
-        <button type="submit"> 
-          Delete
-        </button>
+          <button type="submit"> 
+            Delete
+          </button>
 
-      </form>
-    </td>
-  </tr>
-  {% endfor %}
-</table>
-
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
 {% endblock %}
