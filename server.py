@@ -1,10 +1,18 @@
 """Server for tasklist app."""
 
-from flask import (Flask, render_template, request, flash, session, redirect)
+from flask import Flask, render_template, request, flash, session, redirect, url_for
 from model import connect_to_db, db
 import crud
-
 from jinja2 import StrictUndefined
+
+# import datetime                     ## Google Cal API
+# import os                           ## Google Cal API
+# import google.oauth2.credentials    ## Google Cal API
+# import google_auth_oauthlib.flow    ## Google Cal API
+# import googleapiclient.discovery    ## Google Cal API
+
+# SCOPES = ['https://www.googleapis.com/auth/calendar']   ## Google Cal API
+
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -319,6 +327,91 @@ def delete_group():
     flash("You have deleted a group and all of its data!")
 
     return redirect("/")
+
+
+## Google Cal API Functions
+
+# @app.route('/authorize')
+# def authorize():
+#     """Authorizes Google Calendar."""
+
+#     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file('credentials.json', scopes=SCOPES)
+#     flow.redirect_uri = url_for('oauth2callback', _external=True)
+#     authorization_url, state = flow.authorization_url(
+#         access_type = 'offline',
+#         included_grant_scopes = 'true'
+#     )
+#     return redirect(authorization_url)
+
+
+# @app.route('/oauth2callback')
+# def oauth2callback():
+#     """Sets credentials."""
+
+#     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+#         CLIENT_SECRETS_FILE, scopes=SCOPES, state=state
+#     )
+#     flow.redirect_uri = url_for('oauth2callback', _external=True)
+
+#     authorization_response = request.url
+#     flow.fetch_token(authorization_response=authorization_response)
+
+#     credentials = flow.credentials
+#     session['credentials'] = {
+#         'token': credentials.token,
+#         'refresh_token': credentials.refresh_token,
+#         'token_uri': credentials.token_uri,
+#         'client_id': credentials.client_id,
+#         'client_secret': credentials.client_secret,
+#         'scopes': credentials.scopes
+#     }
+
+#     print(session['credentials'])
+
+#     return redirect('/schedule')
+
+
+# @app.route('/add-event', methods=["POST"]
+# def add_event():
+#     """Add a Google Calendar event."""
+
+#     calendar = request.form.get('calendar')
+#     if calendar:
+#         if not session.get('credentials'):
+#             flash('Please authorize Tasklist with Google Calendar and try again.')
+#             return redirect('/authorize')
+
+#     user_id = session['user_id']
+#     date = request.form.get('date')
+#     time = request.form.get('time')
+#     repeat = request.form.get('repeat')
+
+#     if calendar:
+#         date = datetime.strptime(date, '%Y-%m-%d')
+#         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+#         service = googleapiclient.discovery.build('calendar', 'V3', credentials=credentials)
+
+#         event = {
+#             'summary': 'Tasklist List Name',
+#             'description': 'Assigned Tasks',
+#             'start': {
+#                 'dateTime': f'{date}T{time}:00',
+#                 'timeZone': 'America/Los_Angeles',
+#             }
+#             'end': {
+#                 'dateTime': f'{date}T{time}:59',
+#                 'timeZone': 'America/Los_Angeles'
+#             }
+#             'recurrence': [f'RRULE:FREQ=DAILY;COUNT={repeat}'],
+#             'location': 'URL FOR TASKLIST'
+#         }
+
+#         event = service.events().insert(calendarId='primary', body=event).execute()
+
+#         flash('Calendar event added')
+
+#         return redirect('/schedule')
+
 
 
 if __name__ == '__main__':
