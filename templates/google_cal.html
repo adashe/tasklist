@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Add to Google Calendar{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+  <h1>Authorize Google Calendar</h1>
+  <form action="/authorize">
+    <button type="submit">Authorize Google Calendar</button>
+  </form>
+
+
+  <h1>Add Event to Google Calendar</h1>
+  <form action="/add-event" method="POST">
+
+      <label for="calendar">
+        calendar:
+      </label>
+    <input type="text" name="calendar" value="calendar">
+
+      <label for="date">
+        date:
+      </label>
+    <input type="date" name="date" value="date">
+
+      <label for="time">
+        time:
+      </label>
+    <input type="text" name="time" value="time">
+
+      <label for="repeat">
+        repeat:
+      </label>
+    <input type="text" name="repeat" value="repeat">
+
+    <button type="submit">Add Event</button>
+  </form>
+
+</div>  
+{% endblock %}
