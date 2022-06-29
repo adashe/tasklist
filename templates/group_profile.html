@@ -60,6 +60,24 @@
   </div>
 
   <div class="row">
+    
+    <h1>User Cards</h1>
+      
+    {% for key, values in group_user_assignments.items() %}
+      <div id=card class="col">
+        <h2>{{ key }}</h2>
+        <ul>
+          {% for value in values %}
+          <li>
+            {{ value }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="row">
     <div class="col">
       <h2>Assign A Chore to a User in This Group</h2>
       <form action="/add-assignment" method="POST">

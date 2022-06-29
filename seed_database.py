@@ -15,6 +15,7 @@ model.db.create_all()
 
 
 ## ADD USERS ##
+# create_user(username, password)
 
 user1 = crud.create_user("Andrea", "TEST")
 user2 = crud.create_user("Ivan", "TEST")     
@@ -27,6 +28,7 @@ model.db.session.add_all(users_in_db)
 
 
 ## ADD CHORES ##
+# create_chore(chore_name, chore_description)
 
 chore1 = crud.create_chore("Feed the Dog", "Give 1.5 cups of food twice per day.")
 chore2 = crud.create_chore("Give Medicine to Dog", "Give 1/2 pill every 12 hours. Cover with cream cheese.")
@@ -39,19 +41,22 @@ model.db.session.add_all(chores_in_db)
 
 
 ## ADD ASSIGNMENTS ##
+# create_assignment(user_id, chore_id, group_id, complete=False)
 
 assignment1 = crud.create_assignment(1, 1, 1)
 assignment2 = crud.create_assignment(2, 2, 1)
 assignment3 = crud.create_assignment(3, 3, 2)
 assignment4 = crud.create_assignment(3, 4, 2)
 assignment5 = crud.create_assignment(4, 3, 2)
+assignment6 = crud.create_assignment(1, 4, 1)
 
-assignments_in_db = [assignment1, assignment2, assignment3, assignment4, assignment5]
+assignments_in_db = [assignment1, assignment2, assignment3, assignment4, assignment5, assignment6]
 
 model.db.session.add_all(assignments_in_db)
 
 
 ## ADD GROUPS ##
+# create_group(group_name, group_description)
 
 group1 = crud.create_group("People", "People in Unit 406")
 group2 = crud.create_group("Pets", "Pets in Unit 406")

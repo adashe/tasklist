@@ -168,6 +168,31 @@ def get_assignments_by_group_user(group_id, user_id):
     return Assignment.query.filter_by(group_id=group_id, user_id=user_id).all()
 
 
+def group_user_assignments(group_id):
+    """Returns a dictionary where the keys are the users in a group and the values are the
+    assignments that each user has that are from that group"""
+
+    group_of_users = get_users_by_group(group_id)
+
+    dict_of_assignments = {}
+
+    for each_user in group_of_users:
+
+        user_id = each_user.user_id
+
+        user = get_user_by_id(user_id)
+
+        this_users_assignments = get_assignments_by_group_user(group_id, user_id)
+
+        dict_of_assignments[user.username] = []
+
+        for each_assignment in this_users_assignments:
+            
+            dict_of_assignments[user.username].append(each_assignment.chore.chore_name)
+
+    return dict_of_assignments
+
+
 def toggle_complete(assignment_id):
     """Mark an assignment complete."""
 
