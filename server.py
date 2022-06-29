@@ -5,13 +5,14 @@ from model import connect_to_db, db
 import crud
 from jinja2 import StrictUndefined
 
-import datetime                     ## Google Cal API
-import os                           ## Google Cal API
-import google.oauth2.credentials    ## Google Cal API
-import google_auth_oauthlib.flow    ## Google Cal API
-import googleapiclient.discovery    ## Google Cal API
+from datetime import datetime, date  ## Google Cal API
+from time import strftime, strptime             ## Google Cal API
+import os                                       ## Google Cal API
+import google.oauth2.credentials                ## Google Cal API
+import google_auth_oauthlib.flow                ## Google Cal API
+import googleapiclient.discovery                ## Google Cal API
 
-CLIENT_SECRETS_FILE = "client_secret.json"
+CLIENT_SECRETS_FILE = "client_secret.json"              ## Google Cal API
 SCOPES = ['https://www.googleapis.com/auth/calendar']   ## Google Cal API
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1' ## Sidesteps need for https
@@ -397,13 +398,15 @@ def add_event():
             flash('Please authorize Tasklist with Google Calendar and try again.')
             return redirect('/authorize')
 
-    # user_id = session['user_id']
-    # date = request.form.get('date')
-    # time = request.form.get('time')
+    user_id = session['user_id']
+    starting_date = request.form.get('date')
+    time = request.form.get('time')
     # repeat = request.form.get('repeat')
 
+    starting_date = datetime.strptime(starting_date, '%Y-%m-%d')
+
     if calendar:
-        # date = datetime.strptime(date, '%Y-%m-%d')
+        starting_date = starting_date.strftime('%Y-%m-%d')
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
         service = googleapiclient.discovery.build('calendar', 'v3', credentials=credentials)
 
@@ -412,27 +415,27 @@ def add_event():
         'location': '800 Howard St., San Francisco, CA 94103',
         'description': 'A chance to hear more about Google\'s developer products.',
         'start': {
-            'dateTime': '2022-06-24T09:00:00-07:00',
+            'dateTime': f'{ starting_date }T{ time }:00',
             'timeZone': 'America/Los_Angeles',
         },
         'end': {
-            'dateTime': '2022-06-24T17:00:00-08:00',
+            'dateTime': f'{ starting_date }T{ time }:59',
             'timeZone': 'America/Los_Angeles',
         },
-        'recurrence': [
-            'RRULE:FREQ=DAILY;COUNT=2'
-        ],
-        'attendees': [
-            {'email': 'lpage@example.com'},
-            {'email': 'sbrin@example.com'},
-        ],
-        'reminders': {
-            'useDefault': False,
-            'overrides': [
-            {'method': 'email', 'minutes': 24 * 60},
-            {'method': 'popup', 'minutes': 10},
-            ],
-        },
+        # 'recurrence': [
+        #     'RRULE:FREQ=DAILY;COUNT=2'
+        # ],
+        # 'attendees': [
+        #     {'email': 'lpage@example.com'},
+        #     {'email': 'sbrin@example.com'},
+        # ],
+        # 'reminders': {
+        #     'useDefault': False,
+        #     'overrides': [
+        #     {'method': 'email', 'minutes': 24 * 60},
+        #     {'method': 'popup', 'minutes': 10},
+        #     ],
+        # },
         }
 
         event = service.events().insert(calendarId='primary', body=event).execute()
