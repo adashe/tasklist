@@ -184,11 +184,11 @@ def group_user_assignments(group_id):
 
         this_users_assignments = get_assignments_by_group_user(group_id, user_id)
 
-        dict_of_assignments[user.username] = []
+        dict_of_assignments[user] = []
 
         for each_assignment in this_users_assignments:
             
-            dict_of_assignments[user.username].append(each_assignment.chore.chore_name)
+            dict_of_assignments[user].append(each_assignment.chore.chore_name)
 
     return dict_of_assignments
 

@@ -123,8 +123,9 @@ def show_tasklist():
     users = crud.get_users()
     chores = crud.get_chores()
     users_groups = crud.get_groups_by_user_id(user_id) #only show groups for this user
+    groups = crud.get_groups()
 
-    return render_template("tasklist.html", users=users, chores=chores, users_groups=users_groups)
+    return render_template("tasklist.html", users=users, chores=chores, users_groups=users_groups, groups=groups)
 
 
 @app.route("/add-assignment", methods=["POST"])
@@ -246,6 +247,16 @@ def add_chore():
 
     flash("You have added a new chore!")
 
+    ## Add chore to the library 
+
+    chore_id = new_chore.chore_id
+
+    new_group_chore = crud.add_chore_to_group(group_id, chore_id)
+    db.session.add(new_group_chore)
+    db.session.commit()
+
+    flash("You have added a new chore to the group chore library!")
+
     return redirect(f'/groups/{ group_id }')
 
 
@@ -263,6 +274,22 @@ def add_group_user():
     flash("You have added a new user to the group!")
 
     return redirect(f'/groups/{ group_id }')
+
+
+@app.route("/join-group", methods=["POST"])
+def join_group():
+    """Add user to a group."""
+
+    user_id = session['user_id']
+    group_id = request.form['group_id']
+
+    new_group_user = crud.add_user_to_group(group_id, user_id)
+    db.session.add(new_group_user)
+    db.session.commit()
+
+    flash("You have joined a group!")
+
+    return redirect(f'/tasklist')
 
 
 @app.route("/toggle-complete", methods=["POST"])

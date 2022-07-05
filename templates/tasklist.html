@@ -1,27 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Tasklist{% endblock %}
-
 {% block body %}
 <div class="container">
-
-  <div class="row">
-    <div class="col">
-      <form action="/logout">
-        <button type="submit">Logout</button>
-      </form>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <h1>Tasklist</h1>
-    </div>
-  </div>
   
   <div class="row">
     <div class="col">
-      <h2>Your Tasklist Groups</h2>
+      <h2>My Tasklist Groups</h2>
       <ul>
         {% for users_group in users_groups %}
         <li>
@@ -45,11 +29,28 @@
         </p>
         
         <p>
-          <input type="submit">
+          <button type="input">Create Group</button>
         </p>
       </form>
     </div>
 
-  </div>
+
+    <div class="col">
+      <h2>Join a Group</h2>
+      <form action="/join-group" method="POST">
+
+        <p>
+          <select name="group_id">
+            {% for group in groups %}
+            <option value="{{ group.group_id }}">{{ group.group_name }}</option>
+            {% endfor %}
+          </select>
+        </p>
+
+        <p>
+          <button type="submit">Join Group</button>
+        </p>
+      </form>
+    </div>
 </div>
 {% endblock %}

@@ -1,46 +1,47 @@
 {% extends 'base.html' %}
 
-{% block title %}Group Details{% endblock %}
-
 {% block body %}
 
 <div class="container">
 
   <div class="row">
-    <a href="/tasklist">Return to Home</a>
 
     <h1>{{ group.group_name }}</h1>
 
-    <h2>{{ group.group_name }}'s Members</h2>
-
-    <h3>Click on a user to see their assigned tasks.</h3>
-    <table>
-      {% for group_user in group_users %}
-      <tr>
-        <td>
-          <a href="/users/{{ group_user.user.user_id }}">
-            {{ group_user.user.username }}
-          </a>
-        </td>
-        <td>
-          <form action="/delete-group-user" method="POST">  
-
-            <input type="hidden" name="user_id" value="{{ group_user.user.user_id }}">
-            <input type="hidden" name="group_id" value="{{ group_user.group.group_id }}">
-
-            <button type="submit"> 
-              Remove {{ group_user.user.username }} from this group.
-            </button>
-
-          </form>
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
   </div>
 
   <div class="row">
-    <h2>Add A User to This Group</h2>
+    
+    <h2>Users in this Group</h2>
+      
+    {% for key, values in group_user_assignments.items() %}
+      <div class="col" id="card">
+        <h2 id="card-title">{{ key.username }}</h2>
+        <ul id="card-text">
+          {% for value in values %}
+          <li>
+            {{ value }}
+          </li>
+          {% endfor %}
+        </ul>
+
+        <form action="/delete-group-user" method="POST">  
+
+          <input type="hidden" name="user_id" value="{{ key.user_id }}">
+          <input type="hidden" name="group_id" value="{{ group_id }}">
+
+          <button type="submit"> 
+            Remove {{ key.username }}
+          </button>
+
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="row">
+    <div class="col">
+    <h2>Add A User</h2>
     <form action="/add-group-user" method="POST">
 
       <input type="hidden" name="group_id" value="{{ group_id }}">
@@ -59,30 +60,11 @@
     </form>
   </div>
 
-  <div class="row">
-    
-    <h1>User Cards</h1>
-      
-    {% for key, values in group_user_assignments.items() %}
-      <div id=card class="col">
-        <h2>{{ key }}</h2>
-        <ul>
-          {% for value in values %}
-          <li>
-            {{ value }}
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endfor %}
-  </div>
-
-  <div class="row">
     <div class="col">
-      <h2>Assign A Chore to a User in This Group</h2>
+      <h2>Assign A Task</h2>
       <form action="/add-assignment" method="POST">
         <p>
-          Chores 
+          Tasks 
           <select name="chore_id">
             {% for group_chore in group_chores %}
             <option value="{{ group_chore.chore.chore_id }}">{{ group_chore.chore.chore_name }}</option>
@@ -102,7 +84,7 @@
         <input type="hidden" name="group_id" value="{{ group_id }}">
         
         <p>
-          <button type="submit">Assign Chore</button>
+          <button type="submit">Assign Task</button>
         </p>
       </form>
     </div>
@@ -120,7 +102,27 @@
     </div> -->
 
     <div class="col">
-      <h2>Add Chore to Group Library</h2>
+
+      <h2>Create New Task</h2>
+      <form action="/add-chore" method="POST">
+      <p>
+        Task Name <input type="text" name="chore_name">
+      </p>
+
+      <p>
+        Task Description <input type="text" name="chore_description">
+      </p>
+
+      <input type="hidden" name="group_id" value="{{ group_id }}">
+
+      <p>
+        <button type="submit">Create Task</button>
+      </p>
+      </form>
+    </div>
+
+    <div class="col">
+      <h2>Find a Task</h2>
       <form action="/add-group-chore" method="POST">
 
         <input type="hidden" name="group_id" value="{{ group_id }}">
@@ -134,42 +136,25 @@
         </p>
 
         <p>
-          <button type="submit">Add Chore to Library</button>
+          <button type="submit">Add Task to Library</button>
         </p>
-      </form>
-    </div>
-
-    <div class="col">
-
-      <h2>Create New Chore</h2>
-      <form action="/add-chore" method="POST">
-      <p>
-        Chore Name <input type="text" name="chore_name">
-      </p>
-
-      <p>
-        Chore Description <input type="text" name="chore_description">
-      </p>
-
-      <input type="hidden" name="group_id" value="{{ group_id }}">
-
-      <p>
-        <button type="submit">Create Chore</button>
-      </p>
       </form>
     </div>
 
   </div>
 
-  <form action="/delete-group" method="POST">  
+  <div class="row">
+    <form action="/delete-group" method="POST">  
 
-    <input type="hidden" name="group_id" value="{{ group_id }}">
+      <input type="hidden" name="group_id" value="{{ group_id }}">
+  
+      <button type="submit"> 
+        Delete this group!
+      </button>
+  
+    </form>
+  </div>
 
-    <button type="submit"> 
-      Delete this group!
-    </button>
-
-  </form>
 </div>
 
 {% endblock %}
