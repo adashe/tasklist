@@ -20,10 +20,10 @@
     </tr>
     {% for assignment in assignments %}
     <tr>
-      <td> {{ assignment.chore.chore_name }} </td>
-      <td> {{ assignment.chore.chore_description }} </td>
+      <td>{{ assignment.chore.chore_name }}</td>
+      <td>{{ assignment.chore.chore_description }}</td>
       <td><a href="/groups/{{ assignment.group.group_id}}">{{ assignment.group.group_name }}</a></td>
-      <td> {{ assignment.complete }} </td>
+      <td>{{ assignment.complete }}</td>
       <td>
         <form action="/toggle-complete" method="POST">  
 

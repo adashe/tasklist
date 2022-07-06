@@ -6,9 +6,9 @@
   <div class="row">
     <div class="col">
       <h2>My Tasklist Groups</h2>
-      <ul>
+      <ul id="card-ul">
         {% for users_group in users_groups %}
-        <li>
+        <li id="card-li">
             <a href="/groups/{{ users_group.group_id }}">
                 {{ users_group.group.group_name }}
               </a>

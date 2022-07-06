@@ -188,7 +188,7 @@ def group_user_assignments(group_id):
 
         for each_assignment in this_users_assignments:
             
-            dict_of_assignments[user].append(each_assignment.chore.chore_name)
+            dict_of_assignments[user].append(each_assignment)
 
     return dict_of_assignments
 

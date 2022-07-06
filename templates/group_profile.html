@@ -6,7 +6,17 @@
 
   <div class="row">
 
-    <h1>{{ group.group_name }}</h1>
+    <h1>{{ group.group_name }}'s Tasks</h1>
+
+    <form action="/delete-group" method="POST">  
+
+      <input type="hidden" name="group_id" value="{{ group_id }}">
+  
+      <button type="submit"> 
+        Delete this group!
+      </button>
+  
+    </form>
 
   </div>
 
@@ -14,25 +24,37 @@
       
     {% for key, values in group_user_assignments.items() %}
       <div class="col" id="card">
-        <h2 id="card-title">{{ key.username }}</h2>
-        <ul id="card-text">
-          {% for value in values %}
+        <h2 id="card-title">{{ key.username }}</h2>      
+
+        <ul id="card-ul">
           <li>
-            {{ value }}<span class="close">x</span>
+            <form action="/delete-group-user" method="POST">  
+
+              <input type="hidden" name="user_id" value="{{ key.user_id }}">
+              <input type="hidden" name="group_id" value="{{ group_id }}">
+    
+              <button type="submit"> 
+                Remove {{ key.username }}
+              </button>
+    
+            </form>
+          </li>
+          {% for value in values %}
+          <li id="card-li">
+            {{ value.chore.chore_name }}
+            <form action="/delete-assignment" method="POST">  
+
+              <input type="hidden" name="user_id" value="{{ key.user_id }}">
+              <input type="hidden" name="assignment_id" value="{{ value.assignment_id }}">
+    
+              <button type="submit" class="close">x</button>
+    
+            </form>
           </li>
           {% endfor %}
         </ul>
 
-        <form action="/delete-group-user" method="POST">  
 
-          <input type="hidden" name="user_id" value="{{ key.user_id }}">
-          <input type="hidden" name="group_id" value="{{ group_id }}">
-
-          <button type="submit"> 
-            Remove {{ key.username }}
-          </button>
-
-        </form>
       </div>
     {% endfor %}
   </div>
@@ -119,7 +141,7 @@
       </form>
     </div>
 
-    <div class="col">
+    <!-- <div class="col">
       <h2>Find a Task</h2>
       <form action="/add-group-chore" method="POST">
 
@@ -137,20 +159,8 @@
           <button type="submit">Add Task to Library</button>
         </p>
       </form>
-    </div>
+    </div> -->
 
-  </div>
-
-  <div class="row">
-    <form action="/delete-group" method="POST">  
-
-      <input type="hidden" name="group_id" value="{{ group_id }}">
-  
-      <button type="submit"> 
-        Delete this group!
-      </button>
-  
-    </form>
   </div>
 
 </div>
