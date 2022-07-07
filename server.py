@@ -60,9 +60,9 @@ def user_login():
 def user_logout():
     """Log out."""
 
-    del session['user_id']
-
-    flash("You have been logged out.")
+    if 'user_id' in session:
+        del session['user_id']
+        flash("You have been logged out.")
 
     return redirect('/')
 
@@ -312,6 +312,7 @@ def delete_assignment():
 
     assignment_id = request.form['assignment_id']
     user_id = request.form['user_id']
+    group_id = request.form['group_id']
 
     assignment = crud.get_assignment_by_assignment_id(assignment_id)
 
@@ -320,7 +321,7 @@ def delete_assignment():
 
     flash("You have deleted an assignment!")
 
-    return redirect(f'/users/{ user_id }')
+    return redirect(f'/groups/{ group_id }')
 
 
 @app.route("/delete-group-user", methods=["POST"])

@@ -5,18 +5,19 @@
 <div class="container">
 
   <div class="row">
+    <div class="col">
+      <h1>{{ group.group_name }}'s Tasks</h1>
 
-    <h1>{{ group.group_name }}'s Tasks</h1>
+      <p>{{ group.group_description }}</p>
+      
+      <form action="/delete-group" method="POST">  
 
-    <form action="/delete-group" method="POST">  
-
-      <input type="hidden" name="group_id" value="{{ group_id }}">
-  
-      <button type="submit"> 
-        Delete this group!
-      </button>
-  
-    </form>
+        <input type="hidden" name="group_id" value="{{ group_id }}">
+    
+        <button type="submit">Delete this group!</button>
+    
+      </form>
+    </div>
 
   </div>
 
@@ -27,14 +28,15 @@
         <h2 id="card-title">{{ key.username }}</h2>      
 
         <ul id="card-ul">
-          <li>
+          <li id="card-li">
+            Remove {{ key.username }}
             <form action="/delete-group-user" method="POST">  
 
               <input type="hidden" name="user_id" value="{{ key.user_id }}">
               <input type="hidden" name="group_id" value="{{ group_id }}">
     
-              <button type="submit"> 
-                Remove {{ key.username }}
+              <button type="submit" class="close"> 
+                x
               </button>
     
             </form>
@@ -46,6 +48,7 @@
 
               <input type="hidden" name="user_id" value="{{ key.user_id }}">
               <input type="hidden" name="assignment_id" value="{{ value.assignment_id }}">
+              <input type="hidden" name="group_id" value="{{ group_id }}">
     
               <button type="submit" class="close">x</button>
     
@@ -60,14 +63,15 @@
   </div>
 
   <div class="row">
-    <div class="col">
-    <h2>Add A User</h2>
+    <div class="col" id="card">
+    <h2>Add User</h2>
     <form action="/add-group-user" method="POST">
 
       <input type="hidden" name="group_id" value="{{ group_id }}">
 
       <p>
         <select name="user_id">
+          <option selected disabled>Choose a user</option>
           {% for user in users %}
           <option value="{{ user.user_id }}">{{ user.username }}</option>
           {% endfor %}
@@ -80,12 +84,12 @@
     </form>
   </div>
 
-    <div class="col">
-      <h2>Assign A Task</h2>
+    <div class="col" id="card">
+      <h2>Assign Task</h2>
       <form action="/add-assignment" method="POST">
-        <p>
-          Tasks 
+        <p> 
           <select name="chore_id">
+            <option selected disabled>Choose a task</option>
             {% for group_chore in group_chores %}
             <option value="{{ group_chore.chore.chore_id }}">{{ group_chore.chore.chore_name }}</option>
             {% endfor %}
@@ -93,8 +97,8 @@
         </p>
 
         <p>
-        Users 
           <select name="user_id">
+            <option selected disabled>Choose a user</option>
             {% for group_user in group_users %}
             <option value="{{ group_user.user.user_id }}">{{ group_user.user.username }}</option>
             {% endfor %}
@@ -121,16 +125,16 @@
       </ul>
     </div> -->
 
-    <div class="col">
+    <div class="col" id="card">
 
       <h2>Create New Task</h2>
       <form action="/add-chore" method="POST">
       <p>
-        Task Name <input type="text" name="chore_name">
+        <input type="text" name="chore_name" placeholder="Task Name">
       </p>
 
       <p>
-        Task Description <input type="text" name="chore_description">
+        <input type="text" name="chore_description" placeholder="Task Description">
       </p>
 
       <input type="hidden" name="group_id" value="{{ group_id }}">

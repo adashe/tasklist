@@ -1,17 +1,95 @@
 
 body {
-    background-color: #202A2D;
-    font-family: 'Roboto', sans-serif;
-    color: #b7bdc2;
+  background-color: #202A2D;
+  font-family: 'Roboto', sans-serif;
+  color: #b7bdc2;
 }
 
 a {
-    color: #b7bdc2; 
-    text-decoration: none;
+  color: #b7bdc2; 
+  text-decoration: none;
 }
 
 a:hover {
-    color: #f5c300;
+  color: #f5c300;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+}
+
+input {
+  border-radius: 10px;
+  padding: 8px;
+  color: #b7bdc2;
+  background-color: #2E383B;
+  border: 2px solid #2E383B;
+}
+
+input:hover {
+  border: #202A2D;
+  background-color: #202A2D;
+}
+
+select {
+  border-radius: 10px;
+  padding: 8px;
+  color: #b7bdc2; 
+  background-color: #2E383B;
+  border: 2px solid #2E383B;
+}
+
+select:hover {
+  border: #202A2D;
+  background-color: #202A2D;
+}
+
+button {
+  border: 2px solid #2E383B;
+  border-radius: 10px;
+  color: #b7bdc2; 
+  background-color: #2E383B;
+  padding: 8px;
+}
+
+button:hover {
+  border: #202A2D;
+  background-color: #202A2D;
+  color: #f5c300;
+}
+
+table {
+  background-color: #2E383B;
+  border-radius: 10px;
+}
+
+th {
+  font-size: 14pt;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10px;
+}
+
+td {
+  padding: 10px;
+}
+
+.flash-msg {
+  margin-left: 20px;
+  position: relative;
+}
+
+.nav-link {
+  font-size: 16pt;
+}
+
+.nav-item {
+  padding: 10px;
 }
 
 #logo {
@@ -19,6 +97,10 @@ a:hover {
     color: #f5c300;
     font-size: 36pt;
     margin-left: 20px;
+}
+
+#welcome {
+  padding: 10px;
 }
 
 #card {
@@ -33,68 +115,55 @@ a:hover {
     font-family: 'Sofia', cursive;
     color: #f5c300;
     text-align: center;
+    font-size: 36px;
 }
 
 #card-text {
     text-align: center;
 }
 
-button {
-    border: 2px solid #2E383B;
-    border-radius: 10px;
-    color: #b7bdc2; 
-    background-color: #2E383B;
-    padding: 12px;
-}
-
-button:hover {
-    border: #202A2D;
-    background: #202A2D;
-    color: #f5c300;
-}
-
-/* Close Buttons */
+/* Close Buttons on Cards */
 
 * {
     box-sizing: border-box;
   }
   
-  /* Style the list (remove margins and bullets, etc) */
-  #card-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
+/* Style the list (remove margins and bullets, etc) */
+#card-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
   
-  /* Style the list items */
-  #card-li {
-    border: 1px solid #2E383B;
-    margin-top: -1px; /* Prevent double borders */
-    background-color: #2E383B;
-    padding: 12px;
-    text-decoration: none;
-    display: block;
-    position: relative;
-    border-radius: 10px;
-  }
-  
-  /* Add a light grey background color on hover */
-  #card-li:hover {
-    color: #f5c300;
-  }
-  
-  /* Style the close button (span) */
-  .close {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    right: 0%;
-    padding: 12px 16px;
-    transform: translate(0%, -50%);
-    border-radius: 10px;
-  }
-  
-  .close:hover {
-    background: #202A2D;
-    color: #f5c300;
+/* Style the list items */
+#card-li {
+  border: 1px solid #2E383B;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #2E383B;
+  padding: 12px;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  border-radius: 10px;
+}
+
+/* Add a light grey background color on hover */
+#card-li:hover {
+  color: #f5c300;
+}
+
+/* Style the close button */
+.close {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  padding: 12px 16px;
+  transform: translate(0%, -50%);
+  border-radius: 10px;
+}
+
+.close:hover {
+  background: #202A2D;
+  color: #f5c300;
 }

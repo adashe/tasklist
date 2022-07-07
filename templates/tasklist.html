@@ -4,7 +4,7 @@
 <div class="container">
   
   <div class="row">
-    <div class="col">
+    <div class="col" id="card">
       <h2>My Tasklist Groups</h2>
       <ul id="card-ul">
         {% for users_group in users_groups %}
@@ -17,15 +17,15 @@
       </ul>
     </div>
 
-    <div class="col">
+    <div class="col" id="card">
       <h2>Create New Group</h2>
       <form action="/add-group" method="POST">
         <p>
-          Group Name <input type="text" name="group_name">
+          <input type="text" name="group_name" placeholder="Group Name">
         </p>
 
         <p>
-          Group Description <input type="text" name="group_description">
+          <input type="text" name="group_description" placeholder="Group Description">
         </p>
         
         <p>
@@ -35,12 +35,13 @@
     </div>
 
 
-    <div class="col">
+    <div class="col" id="card">
       <h2>Join a Group</h2>
       <form action="/join-group" method="POST">
 
         <p>
           <select name="group_id">
+            <option selected disabled>Choose a group</option>
             {% for group in groups %}
             <option value="{{ group.group_id }}">{{ group.group_name }}</option>
             {% endfor %}
