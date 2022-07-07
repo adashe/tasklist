@@ -5,37 +5,60 @@
 
 <div class="container">
 
-  <h1>Authorize Google Calendar</h1>
-  <form action="/authorize">
-    <button type="submit">Authorize Google Calendar</button>
-  </form>
+  <div class="row">
+
+    <div class="col">
+
+      <h1>Add Event to Google Calendar</h1>
+      <form action="/add-event" method="POST">
+        <p>
+          <label for="calendar">
+            Event Name:
+          </label>
+          <input type="text" name="calendar" value="calendar" placeholder="Event Name">
+        </p>
+
+        <p>
+          <label for="description">
+            Description:
+          </label>
+          <input type="text" name="description" value="description" placeholder="Comment">
+        </p>
+
+        <p>
+          <label for="date">
+            Date:
+          </label>
+          <input type="date" name="date" value="date">
+        </p>
+
+        <p>
+          <label for="time">
+            Time:
+          </label>
+          <input type="time" name="time" value="time">
+        </p>
+
+          <!-- <label for="repeat">
+            repeat:
+          </label>
+        <input type="text" name="repeat" value="repeat"> -->
+
+        <button type="submit">Add Event</button>
+      </form>
+    </div>
 
 
-  <h1>Add Event to Google Calendar</h1>
-  <form action="/add-event" method="POST">
+    <div class="col">
 
-      <label for="calendar">
-        calendar:
-      </label>
-    <input type="text" name="calendar" value="calendar">
+      <h1>Authorize Google Calendar</h1>
+      <form action="/authorize">
+        <button type="submit">Authorize Google Calendar</button>
+      </form>
+    </div>
 
-      <label for="date">
-        date:
-      </label>
-    <input type="date" name="date" value="date">
-
-      <label for="time">
-        time:
-      </label>
-    <input type="time" name="time" value="time">
-
-      <!-- <label for="repeat">
-        repeat:
-      </label>
-    <input type="text" name="repeat" value="repeat"> -->
-
-    <button type="submit">Add Event</button>
-  </form>
+    
+  </div>
 
 </div>  
 {% endblock %}

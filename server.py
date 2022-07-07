@@ -438,6 +438,7 @@ def add_event():
             flash('Please authorize Tasklist with Google Calendar and try again.')
             return redirect('/authorize')
 
+    description = request.form.get('description') 
     user_id = session['user_id']
     starting_date = request.form.get('date')
     time = request.form.get('time')
@@ -451,9 +452,9 @@ def add_event():
         service = googleapiclient.discovery.build('calendar', 'v3', credentials=credentials)
 
         event = {
-        'summary': 'Tasklist Event',
-        'location': '800 Howard St., San Francisco, CA 94103',
-        'description': 'A chance to hear more about Google\'s developer products.',
+        'summary': f'{ calendar }',
+        # 'location': '800 Howard St., San Francisco, CA 94103',
+        'description': f'{ description }',
         'start': {
             'dateTime': f'{ starting_date }T{ time }:00',
             'timeZone': 'America/Los_Angeles',
