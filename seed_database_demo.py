@@ -53,10 +53,10 @@ assignment3 = crud.create_assignment(3, 3, 2)
 assignment4 = crud.create_assignment(3, 4, 2)
 assignment5 = crud.create_assignment(4, 3, 2)
 assignment6 = crud.create_assignment(1, 4, 1)
-assignment7 = crud.create_assignment(1, 5, 4)
-assignment8 = crud.create_assignment(2, 6, 4)
-assignment9 = crud.create_assignment(3, 7, 4)
-assignment10 = crud.create_assignment(4, 8, 4)
+assignment7 = crud.create_assignment(1, 5, 3)
+assignment8 = crud.create_assignment(2, 6, 3)
+assignment9 = crud.create_assignment(3, 7, 3)
+assignment10 = crud.create_assignment(4, 8, 3)
 
 assignments_in_db = [assignment1, assignment2, assignment3, assignment4, assignment5, assignment6, assignment7, assignment8, assignment9, assignment10]
 
