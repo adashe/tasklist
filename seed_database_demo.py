@@ -66,9 +66,9 @@ model.db.session.add_all(assignments_in_db)
 ## ADD GROUPS ##
 # create_group(group_name, group_description)
 
-group1 = crud.create_group("Staff", "Staff for the Grace Hackbrignt cohort")
-group2 = crud.create_group("TAs", "TAs for the Grace Hackbright cohort")
-group3 = crud.create_group("Top Secret", "A secret group for secret things")
+group1 = crud.create_group("Hackbright Staff", "Staff for the Grace Hackbrignt cohort")
+group2 = crud.create_group("Hackbright TAs", "TAs for the Grace Hackbright cohort")
+group3 = crud.create_group("Top Secret", "A secret group for a secret party on July 23, 2022")
 
 groups_in_db = [group1, group2, group3]
 
