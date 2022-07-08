@@ -32,7 +32,7 @@ model.db.session.add_all(users_in_db)
 
 chore1 = crud.create_chore("Grade assessments", "Grade all ungraded assessments.")
 chore2 = crud.create_chore("Answer messages", "Answer messages on Discord.")
-chore3 = crud.create_chore("Set up meetings", "Set up meetings with all students.")
+chore3 = crud.create_chore("Help students", "Set up meetings to help all students.")
 chore4 = crud.create_chore("Fix FRODO", "Figure out what went wrong with FRODO.")
 chore5 = crud.create_chore("Make cupcakes", "Make cupcakes for all students.")
 chore6 = crud.create_chore("Decorate", "Decorate the Zoom with balloons and streamers.")
