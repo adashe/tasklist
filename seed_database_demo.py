@@ -17,10 +17,10 @@ model.db.create_all()
 ## ADD USERS ##
 # create_user(username, password)
 
-user1 = crud.create_user("Seema", "TEST")
-user2 = crud.create_user("Andrew", "TEST")     
-user3 = crud.create_user("Aubrey", "TEST")     
-user4 = crud.create_user("Anika", "TEST")  
+user1 = crud.create_user("Andrea", "TEST")
+user2 = crud.create_user("Xochitl", "TEST")     
+user3 = crud.create_user("Lara", "TEST")     
+user4 = crud.create_user("Priya", "TEST")  
 
 users_in_db = [user1, user2, user3, user4]
 
@@ -30,10 +30,10 @@ model.db.session.add_all(users_in_db)
 ## ADD CHORES ##
 # create_chore(chore_name, chore_description)
 
-chore1 = crud.create_chore("Grade assessments", "Grade all ungraded assessments.")
+chore1 = crud.create_chore("Complete assessment", "Complete last assessment.")
 chore2 = crud.create_chore("Answer messages", "Answer messages on Discord.")
-chore3 = crud.create_chore("Help students", "Set up meetings to help all students.")
-chore4 = crud.create_chore("Fix FRODO", "Figure out what went wrong with FRODO.")
+chore3 = crud.create_chore("Meeting", "Set up meetings to help all students.")
+chore4 = crud.create_chore("Update FRODO", "Update profile on FRODO.")
 chore5 = crud.create_chore("Make cupcakes", "Make cupcakes for all students.")
 chore6 = crud.create_chore("Decorate", "Decorate the Zoom with balloons and streamers.")
 chore7 = crud.create_chore("Order pizza", "Order cheese and pepperoni pizza.")
@@ -66,7 +66,7 @@ model.db.session.add_all(assignments_in_db)
 ## ADD GROUPS ##
 # create_group(group_name, group_description)
 
-group1 = crud.create_group("Hackbright Staff", "Staff for the Grace Hackbright cohort")
+group1 = crud.create_group("Hackbright Students", "Students in the Grace Hackbright cohort")
 group2 = crud.create_group("Hackbright TAs", "TAs for the Grace Hackbright cohort")
 group3 = crud.create_group("Top Secret", "A secret group for a secret party on July 23, 2022")
 
