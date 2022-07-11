@@ -140,7 +140,7 @@ def add_assignment():
     db.session.add(new_assignment)
     db.session.commit()
 
-    flash("You have assigned a new chore!")
+    flash("You have assigned a new task!")
 
     return redirect(f'/groups/{ group_id }')
 
@@ -228,7 +228,7 @@ def add_group_chore():
     db.session.add(new_group_chore)
     db.session.commit()
 
-    flash("You have added a new chore to the group chore library!")
+    flash("You have added a new task to the group library!")
 
     return redirect(f'/groups/{ group_id }')
 
@@ -245,7 +245,7 @@ def add_chore():
     db.session.add(new_chore)
     db.session.commit()
 
-    flash("You have added a new chore!")
+    flash("You have added a new task!")
 
     ## Add chore to the library 
 
@@ -255,7 +255,7 @@ def add_chore():
     db.session.add(new_group_chore)
     db.session.commit()
 
-    flash("You have added a new chore to the group chore library!")
+    flash("You have added a new task to the group library!")
 
     return redirect(f'/groups/{ group_id }')
 
@@ -302,7 +302,7 @@ def mark_complete():
 
     db.session.commit()
 
-    flash("You have changed the assignment status!")
+    flash("You have changed the task status!")
 
     return redirect(f'/groups/{ group_id }')
 
@@ -317,7 +317,7 @@ def mark_complete_from_profile():
 
     db.session.commit()
 
-    flash("You have changed the assignment status!")
+    flash("You have changed the task status!")
 
     return redirect(f'/users/{ user_id }')
 
@@ -334,7 +334,7 @@ def delete_assignment():
     db.session.delete(assignment)
     db.session.commit()
 
-    flash("You have deleted an assignment!")
+    flash("You have deleted an assigned task!")
 
     return redirect(f'/groups/{ group_id }')
 
@@ -351,7 +351,7 @@ def delete_assignment_from_profile():
     db.session.delete(assignment)
     db.session.commit()
 
-    flash("You have deleted an assignment!")
+    flash("You have deleted an assigned task!")
 
     return redirect(f'/users/{ user_id }')
 
@@ -372,7 +372,7 @@ def delete_group_user():
 
     db.session.commit()
 
-    flash("You have removed a user and their assignments from this group!")
+    flash("You have removed a user and their assigned tasks from this group!")
 
     return redirect(f'/groups/{ group_id }')
 
@@ -513,7 +513,7 @@ def add_event():
 
         event = service.events().insert(calendarId='primary', body=event).execute()
 
-        flash('Event created: %s' % (event.get('htmlLink')))
+        flash("""Event created: %s """ % (event.get('htmlLink')))
 
         return redirect('/google-cal')
 

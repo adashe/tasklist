@@ -28,9 +28,9 @@
     </nav>
 
     {% for msg in get_flashed_messages() %}
-    <p class="flash-msg">
+    <div class="flash-msg">
       {{ msg }}
-    </p>
+    </div>
     {% endfor %}
 
     {% block body %}{% endblock %}
