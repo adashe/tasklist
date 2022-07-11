@@ -44,6 +44,22 @@
           {% for value in values %}
           <li id="card-li">
             {{ value.chore.chore_name }}
+            <form action="/toggle-complete" method="POST">  
+
+              <input type="hidden" name="user_id" value="{{ key.user_id }}">
+              <input type="hidden" name="assignment_id" value="{{ value.assignment_id }}">
+              <input type="hidden" name="group_id" value="{{ value.group_id }}">
+    
+
+              <button type="submit" class="toggle-complete-btn"> 
+                {% if value.complete %}
+                <span>&#10003;</span> 
+                {% else %}
+                <span>&#9744;</span> 
+                {% endif %}
+              </button>
+            </form>
+
             <form action="/delete-assignment" method="POST">  
 
               <input type="hidden" name="user_id" value="{{ key.user_id }}">

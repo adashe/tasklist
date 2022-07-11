@@ -1,20 +1,44 @@
-{% extends 'base.html' %}
+<!doctype html>
+<html>
+  <head>
+    <title>Tasklist</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Sofia&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="/static/css/site.css"/>
+  </head>
+  <body>
 
-{% block body %}
+    {% for msg in get_flashed_messages() %}
+    <p class="flash-msg">
+      {{ msg }}
+    </p>
+    {% endfor %}
+
 
   <div class="container">
 
     <div class="row">
+      <div class="col" style="text-align: center">
+        <p style="font-size: 20pt; margin-top: 50px">Welcome to</p>
+        <p id="logo" style="margin-bottom: 50px; font-size:42pt">Tasklist</p>
+      </div>
+    </div>
 
-      <div class="col">
-        <h2 style="text-align: left">Log In</h2>
-        <form action="/login" method="POST">
+    <div class="row justify-content-center">
+
+      <div class="col-4">
+        <h2>Log In</h2>
+        <form action="/login" method="POST" style="text-align: center">
           <p>
-            Username <input type="text" name="username">
+            <input type="text" name="username" placeholder="Username">
           </p>
 
           <p>
-            Password <input type="password" name="password">
+            <input type="password" name="password" placeholder="Password">
           </p>
 
           <p>
@@ -23,15 +47,15 @@
         </form>
       </div>
 
-      <div class="col">
-        <h2 style="text-align: left">Create an Account</h2>
-        <form action="/users" method="POST">
+      <div class="col-4">
+        <h2>Create an Account</h2>
+        <form action="/users" method="POST" style="text-align: center">
           <p>
-            Username <input type="text" name="username">
+            <input type="text" name="username" placeholder="Username">
           </p>
 
           <p>
-            Password <input type="password" name="password">
+            <input type="password" name="password" placeholder="Password">
           </p>
 
           <p>
@@ -39,8 +63,10 @@
           </p>
         </form>
       </div>
-    
 
     </div>
   </div>  
-{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+</html>

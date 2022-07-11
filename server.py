@@ -291,9 +291,24 @@ def join_group():
 
     return redirect(f'/tasklist')
 
-
 @app.route("/toggle-complete", methods=["POST"])
 def mark_complete():
+
+    assignment_id = request.form['assignment_id']
+    user_id = request.form['user_id']
+    group_id = request.form['group_id']
+
+    crud.toggle_complete(assignment_id)   
+
+    db.session.commit()
+
+    flash("You have changed the assignment status!")
+
+    return redirect(f'/groups/{ group_id }')
+
+
+@app.route("/toggle-complete-from-profile", methods=["POST"])
+def mark_complete_from_profile():
 
     assignment_id = request.form['assignment_id']
     user_id = request.form['user_id']
@@ -322,6 +337,23 @@ def delete_assignment():
     flash("You have deleted an assignment!")
 
     return redirect(f'/groups/{ group_id }')
+
+
+@app.route("/delete-assignment-from-profile", methods=["POST"])
+def delete_assignment_from_profile():
+
+    assignment_id = request.form['assignment_id']
+    user_id = request.form['user_id']
+    group_id = request.form['group_id']
+
+    assignment = crud.get_assignment_by_assignment_id(assignment_id)
+
+    db.session.delete(assignment)
+    db.session.commit()
+
+    flash("You have deleted an assignment!")
+
+    return redirect(f'/users/{ user_id }')
 
 
 @app.route("/delete-group-user", methods=["POST"])
