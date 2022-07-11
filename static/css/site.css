@@ -47,6 +47,7 @@ select {
 select:hover {
   border: #202A2D;
   background-color: #202A2D;
+  color: #f5c300;
 }
 
 button {
@@ -66,6 +67,7 @@ button:hover {
 table {
   background-color: #2E383B;
   border-radius: 10px;
+  width: 100%;
 }
 
 th {
@@ -80,17 +82,23 @@ td {
   border-top: 1px solid #b7bdc2;
 }
 
-.flash-msg {
-  margin-left: 20px;
-  position: relative;
-}
-
 .nav-link {
   font-size: 16pt;
 }
 
 .nav-item {
   padding: 10px;
+}
+
+.flash-msg {
+  background-color: #2E383B;
+  border: 2px solid;
+  border-radius: 10px;
+  padding: 12px 16px;
+  width: 25%;
+  position: fixed;
+  right: 6%;
+  top: 15%;
 }
 
 #logo {
@@ -174,9 +182,8 @@ td {
   cursor: pointer;
   position: absolute;
   top: 0%;
-  right: 10%;
+  right: 20%;
   padding: 12px 16px;
-  /* transform: translate(0%, 0%); */
   border-radius: 10px;
 }
 
